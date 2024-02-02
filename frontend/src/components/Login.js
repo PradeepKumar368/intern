@@ -1,47 +1,38 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [loginMessage, setLoginMessage] = useState('');
-  
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
-      console.log(`Attempting login with username: ${username}`);
       const response = await fetch('http://localhost:8000/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ identifier, password }),
       });
-  
+
       if (response.ok) {
-        const data = await response.json();
-        const accessToken = data.access;
-  
-        // Debugging console logs
-        console.log('User logged in successfully!', accessToken);
-        console.log('Received data:', data);
-        setLoginMessage('Login successful!');
+        console.log('Login successful!');
+        navigate('/');
       } else {
-        console.error('User login failed.');
+        console.error('Login failed.');
       }
     } catch (error) {
-      console.error('Error during user login:', error);
+      console.error('Error during login:', error);
     }
   };
-  
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="text" placeholder="Email or Username" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Link to="/">Back to Home</Link>
       <button onClick={handleLogin}>Login</button>
-      {loginMessage && <p>{loginMessage}</p>}
     </div>
   );
 }
