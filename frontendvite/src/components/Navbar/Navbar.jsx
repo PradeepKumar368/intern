@@ -8,8 +8,8 @@ import "./navbar.css"
 
 function NavBar() {
     return (
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-            <Container className='navbar'>
+        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar">
+            <Container>
                 {/* <Navbar.Brand href="home" className="mx-auto">eGyanam</Navbar.Brand> */}
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -31,12 +31,16 @@ function NavBar() {
                             Support
                         </Nav.Link>
                     </Nav>
-                    </Navbar.Collapse>
-                    <Navbar.Brand href="home" className="mx-auto">eGyanam</Navbar.Brand>
-                    <Navbar.Collapse>
-                    <Nav className="ms-auto"><Nav.Link href="login">
-                        <Button variant="outline-dark" >Login</Button>
-                    </Nav.Link>
+                </Navbar.Collapse>
+                <Navbar.Brand href="home" className="mx-auto">eGyanam</Navbar.Brand>
+                <Navbar.Collapse>
+                    <Nav className="ms-auto">
+                        <Nav.Link href="teacher">
+                            <Button variant="outline-secondary" size="sm"> Instructor Mode </Button>
+                        </Nav.Link>
+                        <Nav.Link href="login">
+                            <Button variant="outline-dark" >Login</Button>
+                        </Nav.Link>
                         <Nav.Link href="signup">
                             <Button variant="outline-primary">Get Started</Button>
                         </Nav.Link>
