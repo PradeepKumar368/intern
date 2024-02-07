@@ -147,6 +147,7 @@ PASSWORD_HASHERS = [
 
 AUTHENTICATION_BACKENDS = [
     'authentication.backends.EmailBackend',
+    'authentication.backends.TeacherBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
