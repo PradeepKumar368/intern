@@ -6,7 +6,8 @@ import SignUp from './components/SignUp/SignUp'; // Import SignUp component
 import Login from './components/Login/Login'; // Import Login component
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/Navbar/Navbar';
-
+import TeacherSignup from './components/Teacher/signup_teacher';
+import TeacherLogin from './components/Teacher/login_teacher';
 
 
 const App = () => {
@@ -15,11 +16,12 @@ const App = () => {
       <div>
         <NavBar/>
         <Routes>
-        <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<LandingPage />} />
           <Route path="/login" element={<Login />} /> {/* Add Login route */}
           <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
-          {/* <Route path="/teacher" element={<signup_teacher/>}/> */}
+          <Route path="/teachersignup" element={<TeacherSignup/>}/>
+          <Route path="/teacherlogin" element={<TeacherLogin/>}/>
         </Routes>
       </div>
     </Router>

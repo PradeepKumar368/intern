@@ -35,7 +35,7 @@ function NavBar() {
                 <Navbar.Brand href="home" className="mx-auto">eGyanam</Navbar.Brand>
                 <Navbar.Collapse>
                     <Nav className="ms-auto">
-                        <Nav.Link href="teacher">
+                        <Nav.Link href="teacherlogin">
                             <Button variant="outline-secondary" size="sm"> Instructor Mode </Button>
                         </Nav.Link>
                         <Nav.Link href="login">
