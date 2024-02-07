@@ -1,0 +1,7 @@
+react-router-dom
+react-bootstrap 
+bootstrap
+react-icons
+tailwindcss 
+postcss 
+autoprefixer
