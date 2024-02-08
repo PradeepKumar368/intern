@@ -21,7 +21,7 @@ function Login() {
 
       if (response.ok) {
         console.log('Login successful!');
-        navigate('/');
+        navigate('/mycourses');
       } else {
         console.error('Login failed.');
       }

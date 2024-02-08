@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/Navbar/Navbar';
 import TeacherSignup from './components/Teacher/signup_teacher';
 import TeacherLogin from './components/Teacher/login_teacher';
+import CoursePlayer from './components/CoursePlayer/CoursePlayer';
+import CourseForm from './components/Teacher/newcourse';
+import MyCourses from './components/MyCourses/mycourses';
 
 
 const App = () => {
@@ -22,6 +25,9 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
           <Route path="/teachersignup" element={<TeacherSignup/>}/>
           <Route path="/teacherlogin" element={<TeacherLogin/>}/>
+          <Route path="/courseplayer/:courseId" element={<CoursePlayer/>}/>
+          <Route path="/coursecreate" element={<CourseForm />} />
+          <Route path="/mycourses" element={MyCourses} />
         </Routes>
       </div>
     </Router>

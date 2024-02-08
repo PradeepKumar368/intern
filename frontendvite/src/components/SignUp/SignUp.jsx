@@ -24,7 +24,7 @@ function SignUp() {
 
       if (response.ok) {
         console.log('User registered successfully!');
-        navigate('/');
+        navigate('/mycourses');
       } else {
         console.error('User registration failed.');
       }

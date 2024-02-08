@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'users',
+    'course_creation',
 ]
 
 AUTH_USER_MODEL = 'authentication.CustomUser'

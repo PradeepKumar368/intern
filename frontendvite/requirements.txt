@@ -5,3 +5,5 @@ react-icons
 tailwindcss 
 postcss 
 autoprefixer
+react-player
+axios
