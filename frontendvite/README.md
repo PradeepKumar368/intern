@@ -10,3 +10,5 @@ Currently, two official plugins are available:
 npm install react-router-dom
 npm install react-bootstrap bootstrap
 npm install react-icons
+
+UI shadcn : npx shadcn-ui@latest init

@@ -3,8 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
-import "./navbar.css"
-
+import "./navbar.css";
 
 function NavBar() {
     return (
@@ -16,17 +15,19 @@ function NavBar() {
                     <Nav className="me-auto">
                         <Nav.Link href="home">Home</Nav.Link>
                         <Nav.Link href="about">About</Nav.Link>
-                        <NavDropdown title="Courses" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Blockchain</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Cyber Security
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Machine Learning</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Most Popular
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                        <div className="dropdown dropdown-hover">
+                            <NavDropdown title="Courses" id="collapsible-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">Blockchain</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Cyber Security
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Machine Learning</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">
+                                    Most Popular
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
                         <Nav.Link eventKey={2} href="help">
                             Support
                         </Nav.Link>
@@ -36,13 +37,13 @@ function NavBar() {
                 <Navbar.Collapse>
                     <Nav className="ms-auto">
                         <Nav.Link href="teacherlogin">
-                            <Button variant="outline-secondary" size="sm"> Instructor Mode </Button>
+                            <Button variant="outline-secondary" > Instructor Mode </Button>
                         </Nav.Link>
                         <Nav.Link href="login">
                             <Button variant="outline-dark" >Login</Button>
                         </Nav.Link>
                         <Nav.Link href="signup">
-                            <Button variant="outline-primary">Get Started</Button>
+                            <button className="btn btn-active btn-primary">Get Started</button>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
