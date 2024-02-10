@@ -43,7 +43,7 @@ const MyCourses = () => {
                 {courses.map(course => (
                     <li key={course.id} onClick={() => handleCourseClick(course.id)}>
                         <Dropdown>
-                            <Dropdown.Toggle variant="success" id={`dropdown-${course.id}`}>
+                            <Dropdown.Toggle variant="outline-success" id={`dropdown-${course.id}`}>
                                 {course.title}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>

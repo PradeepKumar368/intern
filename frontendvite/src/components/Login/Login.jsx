@@ -1,6 +1,7 @@
 // Import React, useState, and useNavigate from react-router-dom
 import { useState } from 'react';
 import { useNavigate ,Link} from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import "./login.css";
 
 function Login() {
@@ -70,9 +71,9 @@ function Login() {
                     Start Learning with us!
                     <Link to="/signup" className="text-blue-500 hover:outline" > Sign Up here</Link>
                   </p>
-                  <button className="btn btn-active btn-primary" onClick={handleLogin}>
-                    Submit
-                  </button>
+                  <Button variant="outline-primary" onClick={handleLogin}>
+                    Login
+                  </Button>
 
                 </div>
               </form>

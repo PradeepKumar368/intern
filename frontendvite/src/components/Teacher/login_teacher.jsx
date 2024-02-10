@@ -1,6 +1,7 @@
 // TeacherLogin.js
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 
 function TeacherLogin() {
@@ -20,7 +21,7 @@ function TeacherLogin() {
 
       if (response.ok) {
         console.log('Teacher login successful!');
-        navigate('/');
+        navigate('/coursecreate');
         // You can redirect or perform any other action upon successful login
       } else {
         console.error('Teacher login failed.');
@@ -67,9 +68,9 @@ function TeacherLogin() {
                     <Link to="/teachersignup" className="text-blue-500 hover:outline" > Sign Up here</Link>
                   </p>
 
-                  <button className="btn btn-active btn-primary" onClick={handleLogin}>
+                  <Button variant="outline-primary" onClick={handleLogin}>
                     Login
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>

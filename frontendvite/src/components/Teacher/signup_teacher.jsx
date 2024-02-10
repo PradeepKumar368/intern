@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
+import { Form,Button } from 'react-bootstrap';
 
 function TeacherSignup() {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ function TeacherSignup() {
 
       if (response.ok) {
         console.log('Teacher signup successful!');
-        navigate('/');
+        navigate('/coursecreate');
         // You can redirect or perform any other action upon successful signup
       } else {
         console.error('Teacher signup failed.');
@@ -76,9 +76,9 @@ function TeacherSignup() {
                     Already a teacher? 
                     <Link to="/teacherlogin" className="text-blue-500 hover:outline"> Login</Link>
                   </p>
-                  <button className="btn btn-active btn-primary" onClick={handleSignup}>
+                  <Button variant="outline-primary" onClick={handleSignup}>
                     Sign Up
-                  </button>
+                  </Button>
                 </div>
               </Form>
             </div>
