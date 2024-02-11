@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'users',
+    'course_creation',
 ]
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
@@ -58,7 +59,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React development server
+    "http://localhost:5173",  # React development server
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -147,6 +148,7 @@ PASSWORD_HASHERS = [
 
 AUTHENTICATION_BACKENDS = [
     'authentication.backends.EmailBackend',
+    'authentication.backends.TeacherBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

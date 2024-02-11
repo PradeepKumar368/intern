@@ -1,0 +1,10 @@
+react-router-dom
+react-bootstrap 
+bootstrap
+react-icons
+tailwindcss 
+postcss 
+autoprefixer
+react-player
+axios
+daisyui@latest
