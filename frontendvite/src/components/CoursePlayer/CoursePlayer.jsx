@@ -22,14 +22,24 @@ const CoursePlayer = () => {
     }, [courseId]);
 
     return (
-        <div>
+        <div className="flex justify-center bg-white text-white">
             {courseDetails && (
-                <div>
-                    <h2>{courseDetails.title}</h2>
-                    <ReactPlayer controls url={courseDetails.youtubeUrl} />
+                <div className="w-full lg:w-2/3 p-8 bg-gray-800 rounded-lg shadow-lg">
+                    <h2 className="flex justify-center text-3xl font-bold mb-4">{courseDetails.title}</h2>
+                    <div className="w-full aspect-video">
+                        <ReactPlayer
+                            className="rounded-lg overflow-hidden "
+                            controls
+                            url={courseDetails.youtubeUrl}
+                            width="100%"
+                            height="100%"
+                        />
+                    </div>
                 </div>
             )}
         </div>
+
+
     );
 }
 

@@ -7,3 +7,4 @@ postcss
 autoprefixer
 react-player
 axios
+daisyui@latest

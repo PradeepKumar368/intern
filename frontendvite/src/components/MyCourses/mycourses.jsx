@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 const MyCourses = () => {
     const [courses, setCourses] = useState([]);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -28,18 +27,29 @@ const MyCourses = () => {
         };
         fetchCourses();
     }, []);
-    
+
 
     const handleCourseClick = (id) => {
         console.log('Clicked course ID:', id); // Debugging statement
         navigate(`/courseplayer/${id}`);
     };
-    
+
+    const handleClick = () => {
+        console.log("Add new Lecture"); // Debugging statement
+        navigate(`/coursecreate`);
+    };
+
 
     return (
-        <div>
-            <h1>My Courses</h1>
-            <ul>
+
+        <div className="bg-indigo-100 py-6 md:py-12">
+            <div className="container px-4 mx-auto">
+
+                <div className="text-center max-w-2xl mx-auto">
+                    <h1 className="text-3xl md:text-4xl font-medium mb-4">Welcome to the First Course !</h1>
+                </div>
+            </div>
+            {/* <ul>
                 {courses.map(course => (
                     <li key={course.id} onClick={() => handleCourseClick(course.id)}>
                         <Dropdown>
@@ -48,12 +58,52 @@ const MyCourses = () => {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => handleCourseClick(course.id)}>View Course</Dropdown.Item>
-                                {/* Add more dropdown items as needed */}
+                                
                             </Dropdown.Menu>
                         </Dropdown>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
+            <div className="overflow-x-auto h-96">
+                <table className="table table-pin-rows">
+                    <thead>
+                        <tr>
+                            <th>Module 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {courses.map(course => (
+                            <tr
+                                key={course.id}
+                                onClick={() => handleCourseClick(course.id)}
+                                className="hover:bg-gray-800 hover:text-white cursor-pointer transition-colors duration-300"
+                            >
+                                <td className="hover:bg-gray-800 hover:text-white cursor-pointer transition-colors duration-300">{course.title}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+
+                    <thead>
+                        <tr>
+                            <th>Module 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            className="hover:bg-gray-800 hover:text-white cursor-pointer transition-colors duration-300"
+
+                        >
+                            <td className="hover:bg-gray-800 hover:text-white cursor-pointer transition-colors duration-300">Lecture</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="flex justify-center">
+                    <button type="button" className="relative w-1/3 flex justify-center items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md hover:bg-gray-900 focus:outline-none transition duration-300 transform active:scale-95 ease-in-out" onClick={() => handleClick()}>
+                        <span className="pl-2 mx-1">Add Lecture</span>
+                    </button>
+                </div>
+
+            </div>
         </div>
     );
 };

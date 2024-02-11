@@ -13,8 +13,8 @@ function NavBar() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="home">Home</Nav.Link>
-                        <Nav.Link href="about">About</Nav.Link>
+                        <Nav.Link href="/home">Home</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
                         <div className="dropdown dropdown-hover">
                             <NavDropdown title="Courses" id="collapsible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Blockchain</NavDropdown.Item>
@@ -28,21 +28,21 @@ function NavBar() {
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </div>
-                        <Nav.Link eventKey={2} href="help">
+                        <Nav.Link eventKey={2} href="/help">
                             Support
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                <Navbar.Brand href="home" className="mx-auto">eGyanam</Navbar.Brand>
+                <Navbar.Brand href="/home" className="mx-auto">eGyanam</Navbar.Brand>
                 <Navbar.Collapse>
                     <Nav className="ms-auto">
-                        <Nav.Link href="teacherlogin">
+                        <Nav.Link href="/teacherlogin">
                             <Button variant="outline-secondary" > Instructor Mode </Button>
                         </Nav.Link>
-                        <Nav.Link href="login">
+                        <Nav.Link href="/login">
                             <Button variant="outline-dark" >Login</Button>
                         </Nav.Link>
-                        <Nav.Link href="signup">
+                        <Nav.Link href="/signup">
                             <button className="btn btn-active btn-primary">Get Started</button>
                         </Nav.Link>
                     </Nav>
