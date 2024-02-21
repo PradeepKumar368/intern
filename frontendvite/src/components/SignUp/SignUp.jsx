@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate ,Link } from 'react-router-dom';
 import { Form,Button } from 'react-bootstrap';
-import "./signup.css";
+
 
 
 function SignUp() {
@@ -24,7 +24,7 @@ function SignUp() {
 
       if (response.ok) {
         console.log('User registered successfully!');
-        navigate('/mycourses');
+        navigate('/ViewCourses');
       } else {
         console.error('User registration failed.');
       }

@@ -9,9 +9,11 @@ import NavBar from './components/Navbar/Navbar';
 import TeacherSignup from './components/Teacher/signup_teacher';
 import TeacherLogin from './components/Teacher/login_teacher';
 import CoursePlayer from './components/CoursePlayer/CoursePlayer';
-import CourseForm from './components/Teacher/newcourse';
-import MyCourses from './components/MyCourses/mycourses';
-
+import ViewCourses from './components/Courses/ViewCourses';
+import NewVideo from './components/Teacher/NewVideo';
+import TeacherDashboard from './components/Teacher/Dashboard_teacher/Teacher_dashboard';
+import CourseCreate from './components/Courses/CreateCourse';
+import EditCourse from './components/Courses/EditCourse';
 
 const App = () => {
   return (
@@ -26,8 +28,11 @@ const App = () => {
           <Route path="/teachersignup" element={<TeacherSignup/>}/>
           <Route path="/teacherlogin" element={<TeacherLogin/>}/>
           <Route path="/courseplayer/:courseId" element={<CoursePlayer/>}/>
-          <Route path="/coursecreate" element={<CourseForm />} />
-          <Route path="/mycourses" element={<MyCourses/>} />
+          <Route path="/ViewCourses" element={<ViewCourses/>} />
+          <Route path="/newVideo" element={<NewVideo/>} />
+          <Route path="/teacherdashboard" element={<TeacherDashboard/>} />
+          <Route path="/coursecreate" element={<CourseCreate/>} />
+          <Route path="/editcourse" element={<EditCourse/>} />
         </Routes>
       </div>
     </Router>

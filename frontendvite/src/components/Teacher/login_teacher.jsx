@@ -2,13 +2,13 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-
+import { useAuth } from '../Auth/AuthContext';
 
 function TeacherLogin() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  const { login } = useAuth();
   const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/teacherlogin/', {
@@ -20,8 +20,13 @@ function TeacherLogin() {
       });
 
       if (response.ok) {
+        const data = await response.json();
         console.log('Teacher login successful!');
-        navigate('/coursecreate');
+        console.log('Teacher login successful!', data);
+        console.log(data.access_token, data.user.id);
+        login(data.access_token, data.user.id);
+
+        navigate('/teacherdashboard');
         // You can redirect or perform any other action upon successful login
       } else {
         console.error('Teacher login failed.');
