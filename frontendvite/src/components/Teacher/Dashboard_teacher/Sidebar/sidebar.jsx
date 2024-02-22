@@ -1,69 +1,24 @@
-// import { useState, useEffect } from 'react';
-// import { Sidebar } from 'flowbite-react';
-// import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
-// import "./sidebar.css"
+import React, { useContext, useState } from "react";
+import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 
+// Context for managing sidebar state
+const SidebarContext = React.createContext();
 
-// function SideBar() {
-//   const [isCollapsed, setIsCollapsed] = useState(false);
-
-//   useEffect(() => {
-//     const handleResize = () => {
-//       if (window.innerWidth < 768) {
-//         setIsCollapsed(true);
-//       } else {
-//         setIsCollapsed(false);
-//       }
-//     };
-
-//     window.addEventListener('resize', handleResize);
-//     return () => window.removeEventListener('resize', handleResize);
-//   }, []);
-
-//   return (
-//     <Sidebar aria-label="Default sidebar example" className={isCollapsed ? 'collapsed' : ''}>
-//       <Sidebar.Items>
-//         <Sidebar.ItemGroup>
-//           <Sidebar.Item href="#" icon={HiChartPie}>
-//             Dashboard
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiViewBoards} label="Pro" labelColor="dark">
-//             Kanban
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiInbox} label="3">
-//             Inbox
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiUser}>
-//             Users
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiShoppingBag}>
-//             Products
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiArrowSmRight}>
-//             Sign In
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiTable}>
-//             Sign Up
-//           </Sidebar.Item>
-//         </Sidebar.ItemGroup>
-//       </Sidebar.Items>
-//     </Sidebar>
-//   );
-// }
-
-// export default SideBar;
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react"
-import { useContext, createContext, useState } from "react"
-
-const SidebarContext = createContext()
-
+// Sidebar component
 export default function Sidebar({ children }) {
-  const [expanded, setExpanded] = useState(true)
-  
+  const [expanded, setExpanded] = useState(true);
+
+  // Toggle sidebar expansion
+  const toggleSidebar = () => {
+    setExpanded((curr) => !curr);
+  };
+
   return (
     <aside className="h-screen">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+        {/* Sidebar header */}
         <div className="p-4 pb-2 flex justify-between items-center">
+          {/* Sidebar logo */}
           <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
@@ -71,24 +26,29 @@ export default function Sidebar({ children }) {
             }`}
             alt=""
           />
+          {/* Toggle button */}
           <button
-            onClick={() => setExpanded((curr) => !curr)}
+            onClick={toggleSidebar}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
         </div>
 
+        {/* Provide context value */}
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
+        {/* User information */}
         <div className="border-t flex p-3">
+          {/* User avatar */}
           <img
             src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
             alt=""
             className="w-10 h-10 rounded-md"
           />
+          {/* User details */}
           <div
             className={`
               flex justify-between items-center
@@ -96,20 +56,25 @@ export default function Sidebar({ children }) {
           `}
           >
             <div className="leading-4">
+              {/* User name */}
               <h4 className="font-semibold">John Doe</h4>
+              {/* User email */}
               <span className="text-xs text-gray-600">johndoe@gmail.com</span>
             </div>
+            {/* More options */}
             <MoreVertical size={20} />
           </div>
         </div>
       </nav>
     </aside>
-  )
+  );
 }
 
+// Sidebar item component
 export function SidebarItem({ icon, text, active, alert }) {
-  const { expanded } = useContext(SidebarContext)
-  
+  // Access sidebar context
+  const { expanded } = useContext(SidebarContext);
+
   return (
     <li
       className={`
@@ -123,7 +88,9 @@ export function SidebarItem({ icon, text, active, alert }) {
         }
     `}
     >
+      {/* Icon */}
       {icon}
+      {/* Text */}
       <span
         className={`overflow-hidden transition-all ${
           expanded ? "w-52 ml-3" : "w-0"
@@ -131,6 +98,7 @@ export function SidebarItem({ icon, text, active, alert }) {
       >
         {text}
       </span>
+      {/* Alert indicator */}
       {alert && (
         <div
           className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
@@ -139,6 +107,7 @@ export function SidebarItem({ icon, text, active, alert }) {
         />
       )}
 
+      {/* Collapsed text */}
       {!expanded && (
         <div
           className={`
@@ -152,5 +121,5 @@ export function SidebarItem({ icon, text, active, alert }) {
         </div>
       )}
     </li>
-  )
+  );
 }
