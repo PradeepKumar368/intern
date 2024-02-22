@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(*pdn!17w0603z)cg660o4_@i6yr%dv-n37#&r*jyowje7fj-n'
-
+JWT_SECRET_KEY = 'cdab5c07570365443345051f8afad39044b16c9a63df38bed8d10c211d90f8f4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,15 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'corsheaders',
     'api',
     'rest_framework',
     'authentication',
-    'users',
     'course_creation',
+    'courses',
+    'rest_framework_simplejwt',
 ]
 
-AUTH_USER_MODEL = 'authentication.CustomUser'
+AUTH_USER_MODEL = 'authentication.Teacher'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,9 +143,28 @@ REST_FRAMEWORK = {
     ),
 }
 
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_REFRESH_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+}
+
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    # Add other hashers as needed
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -151,4 +172,3 @@ AUTHENTICATION_BACKENDS = [
     'authentication.backends.TeacherBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
-

@@ -7,6 +7,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import "./index.css"; // Import global CSS styles
+import { AuthProvider } from "./components/Auth/AuthContext.jsx";
 
 // Extend Chakra UI theme to modify global styles
 const chakraTheme = extendTheme({
@@ -26,13 +27,15 @@ const root = ReactDOM.createRoot(container);
 
 // Render the app inside a BrowserRouter, with ChakraProvider and CacheProvider
 root.render(
-    <CacheProvider value={emotionCache}>
-      <ChakraProvider theme={chakraTheme}>
-        <React.StrictMode>
+  <CacheProvider value={emotionCache}>
+    <ChakraProvider theme={chakraTheme}>
+      <React.StrictMode>
+        <AuthProvider>
           <App />
-        </React.StrictMode>
-      </ChakraProvider>
-    </CacheProvider>
+        </AuthProvider>
+      </React.StrictMode>
+    </ChakraProvider>
+  </CacheProvider>
 );
 
 // Measure performance in the app

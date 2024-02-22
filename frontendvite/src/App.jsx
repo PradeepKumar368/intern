@@ -9,41 +9,32 @@ import NavBar from './components/Navbar/Navbar';
 import TeacherSignup from './components/Teacher/signup_teacher';
 import TeacherLogin from './components/Teacher/login_teacher';
 import CoursePlayer from './components/CoursePlayer/CoursePlayer';
-import CourseForm from './components/Teacher/newcourse';
-import MyCourses from './components/MyCourses/mycourses';
-import Dashboard from './components/Teacher/Dashboard_teacher/dashboard';
-
-
-
+import ViewCourses from './components/Courses/ViewCourses';
+import NewVideo from './components/Teacher/NewVideo';
+import TeacherDashboard from './components/Teacher/Dashboard_teacher/Teacher_dashboard';
+import CourseCreate from './components/Courses/CreateCourse';
+import EditCourse from './components/Courses/EditCourse';
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        {/* Routes with NavBar */}
-        <Route
-          path="/"
-          element={
-            <div>
-              <NavBar />
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/home" element={<LandingPage />} />
-                <Route path="/login" element={<Login />} /> {/* Add Login route */}
-                <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
-                <Route path="/teachersignup" element={<TeacherSignup />} />
-                <Route path="/teacherlogin" element={<TeacherLogin />} />
-                <Route path="/courseplayer/:courseId" element={<CoursePlayer />} />
-                <Route path="/coursecreate" element={<CourseForm />} />
-                <Route path="/mycourses" element={<MyCourses />} />
-              </Routes>
-            </div>
-          }
-        />
-        {/* Route without NavBar */}
-        <Route path="/teacherdashboard" element={<Dashboard />} />
-        {/* <Route path="/coursedetailpage" element={<CourseDetailPage />} /> */}
-      </Routes>
+      <div>
+        <NavBar/>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} /> {/* Add Login route */}
+          <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
+          <Route path="/teachersignup" element={<TeacherSignup/>}/>
+          <Route path="/teacherlogin" element={<TeacherLogin/>}/>
+          <Route path="/courseplayer/:courseId" element={<CoursePlayer/>}/>
+          <Route path="/ViewCourses" element={<ViewCourses/>} />
+          <Route path="/newVideo" element={<NewVideo/>} />
+          <Route path="/teacherdashboard" element={<TeacherDashboard/>} />
+          <Route path="/coursecreate" element={<CourseCreate/>} />
+          <Route path="/editcourse" element={<EditCourse/>} />
+        </Routes>
+      </div>
     </Router>
   );
 };

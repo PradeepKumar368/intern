@@ -6,16 +6,9 @@ class EmailBackend(ModelBackend):
     def authenticate(self, request, email=None, username=None, password=None, **kwargs):
         UserModel = get_user_model()
         
-        print("Testing if the authenticate method is being called.")
+        print("Testing if the user authenticate method is being called.")
         print(f"Email: {email}, Username: {username}, Password: {password}")
 
-        # # Normalize email and username to lowercase
-        # if email:
-        #     email = email.lower()
-        # elif username:
-        #     username = username.lower()
-
-        # Attempt to authenticate with email
         if email:
             try:
                 user = UserModel.objects.get(email=email)
@@ -47,16 +40,9 @@ class EmailBackend(ModelBackend):
 class TeacherBackend(ModelBackend):
     def authenticate(self, request, email=None, username=None, password=None, **kwargs):
         TeacherModel = Teacher
-        print("Testing if the authenticate method for Teacher is being called.")
+        print("Testing if the teacher backend authenticate method for Teacher is being called.")
         print(f"Email: {email}, Username: {username}, Password: {password}")
 
-        # # Normalize email and username to lowercase
-        # if email:
-        #     email = email.lower()
-        # elif username:
-        #     username = username.lower()
-
-        # Attempt to authenticate with email
         if email:
             try:
                 teacher = TeacherModel.objects.get(email=email)
