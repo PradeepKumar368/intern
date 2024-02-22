@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui",'flowbite/plugin')],
   content: [
     './pages/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
+    "./node_modules/flowbite/**/*.js",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   prefix: "",
   theme: {

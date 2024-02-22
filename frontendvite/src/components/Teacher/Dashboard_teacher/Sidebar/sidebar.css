@@ -1,0 +1,22 @@
+/* Tailwind CSS */
+.collapsed .sidebar-item-label {
+    display: none;
+  }
+  
+  .sidebar-item-label {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  
+  .sidebar-item {
+    transition: all 0.3s;
+  }
+  
+  .sidebar-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .sidebar-item.active {
+    background-color: #e2e8f0;
+  }
+  

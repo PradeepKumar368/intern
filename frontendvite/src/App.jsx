@@ -11,25 +11,39 @@ import TeacherLogin from './components/Teacher/login_teacher';
 import CoursePlayer from './components/CoursePlayer/CoursePlayer';
 import CourseForm from './components/Teacher/newcourse';
 import MyCourses from './components/MyCourses/mycourses';
+import Dashboard from './components/Teacher/Dashboard_teacher/dashboard';
+
+
 
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <NavBar/>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} /> {/* Add Login route */}
-          <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
-          <Route path="/teachersignup" element={<TeacherSignup/>}/>
-          <Route path="/teacherlogin" element={<TeacherLogin/>}/>
-          <Route path="/courseplayer/:courseId" element={<CoursePlayer/>}/>
-          <Route path="/coursecreate" element={<CourseForm />} />
-          <Route path="/mycourses" element={<MyCourses/>} />
-        </Routes>
-      </div>
+      <Routes>
+        {/* Routes with NavBar */}
+        <Route
+          path="/"
+          element={
+            <div>
+              <NavBar />
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/home" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} /> {/* Add Login route */}
+                <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
+                <Route path="/teachersignup" element={<TeacherSignup />} />
+                <Route path="/teacherlogin" element={<TeacherLogin />} />
+                <Route path="/courseplayer/:courseId" element={<CoursePlayer />} />
+                <Route path="/coursecreate" element={<CourseForm />} />
+                <Route path="/mycourses" element={<MyCourses />} />
+              </Routes>
+            </div>
+          }
+        />
+        {/* Route without NavBar */}
+        <Route path="/teacherdashboard" element={<Dashboard />} />
+        {/* <Route path="/coursedetailpage" element={<CourseDetailPage />} /> */}
+      </Routes>
     </Router>
   );
 };
