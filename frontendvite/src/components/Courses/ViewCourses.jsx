@@ -35,8 +35,8 @@ const ViewCourses = () => {
     };
 
     const handleClick = () => {
-        console.log("Add new Lecture"); // Debugging statement
-        navigate(`/NewVideo`);
+        console.log("View My Courses"); // Debugging statement
+        navigate(`/studentdashboard`);
     };
 
 
@@ -99,7 +99,7 @@ const ViewCourses = () => {
                 </table>
                 <div className="flex justify-center">
                     <button type="button" className="relative w-1/3 flex justify-center items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md hover:bg-gray-900 focus:outline-none transition duration-300 transform active:scale-95 ease-in-out" onClick={() => handleClick()}>
-                        <span className="pl-2 mx-1">Add Lecture</span>
+                        <span className="pl-2 mx-1">My Courses</span>
                     </button>
                 </div>
 

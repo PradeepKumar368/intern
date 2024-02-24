@@ -20,7 +20,7 @@ function TeacherSignup() {
 
       if (response.ok) {
         console.log('Teacher signup successful!');
-        navigate('/NewVideo');
+        navigate('/teacherdashboard');
         // You can redirect or perform any other action upon successful signup
       } else {
         console.error('Teacher signup failed.');

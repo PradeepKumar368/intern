@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 
 // Context for managing sidebar state
@@ -7,11 +7,31 @@ const SidebarContext = React.createContext();
 // Sidebar component
 export default function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
+  const [teacherProfile, setTeacherProfile] = useState(null);
 
   // Toggle sidebar expansion
   const toggleSidebar = () => {
     setExpanded((curr) => !curr);
   };
+
+  // Fetch teacher profile on component mount
+  useEffect(() => {
+    const fetchTeacherProfile = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/teacherprofile/");
+        if (response.ok) {
+          const data = await response.json();
+          setTeacherProfile(data);
+        } else {
+          console.error("Failed to fetch teacher profile.");
+        }
+      } catch (error) {
+        console.error("Error during teacher profile fetch:", error);
+      }
+    };
+
+    fetchTeacherProfile();
+  }, []);
 
   return (
     <aside className="h-screen">
@@ -37,38 +57,44 @@ export default function Sidebar({ children }) {
 
         {/* Provide context value */}
         <SidebarContext.Provider value={{ expanded }}>
+          {/* Render teacher profile details */}
+          {teacherProfile && (
+            <div className="border-b p-3">
+              {/* Teacher avatar */}
+              <img
+                src={teacherProfile.avatar}
+                alt=""
+                className="w-10 h-10 rounded-md"
+              />
+              {/* Teacher details */}
+              <div
+                className={`
+                  flex justify-between items-center
+                  overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+              `}
+              >
+                <div className="leading-4">
+                  {/* Teacher name */}
+                  <h4 className="font-semibold">{teacherProfile.username}</h4>
+                  {/* Teacher email */}
+                  <span className="text-xs text-gray-600">
+                    {teacherProfile.email}
+                  </span>
+                </div>
+                {/* More options */}
+                <MoreVertical size={20} />
+              </div>
+            </div>
+          )}
+
+          {/* Render children */}
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
-        {/* User information */}
-        <div className="border-t flex p-3">
-          {/* User avatar */}
-          <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            alt=""
-            className="w-10 h-10 rounded-md"
-          />
-          {/* User details */}
-          <div
-            className={`
-              flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
-          `}
-          >
-            <div className="leading-4">
-              {/* User name */}
-              <h4 className="font-semibold">John Doe</h4>
-              {/* User email */}
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
-            </div>
-            {/* More options */}
-            <MoreVertical size={20} />
-          </div>
-        </div>
       </nav>
     </aside>
   );
 }
+
 
 // Sidebar item component
 export function SidebarItem({ icon, text, active, alert }) {

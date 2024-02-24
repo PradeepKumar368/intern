@@ -48,7 +48,7 @@ function TeacherDashboard() {
         <Link to="/coursecreate">
           <AddCourseButton />
         </Link>
-        <h2>Your Courses:</h2>
+        <h2 className="text-2xl font-bold mt-2 mb-4 ml-4">Your Courses:</h2>
         <CourseTable courses={courses} />
       </div>
     </div>

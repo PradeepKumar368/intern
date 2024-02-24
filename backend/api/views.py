@@ -38,9 +38,20 @@ class LoginView(APIView):
             login(request, user)
             refresh = RefreshToken.for_user(user)
             print(f"Token details: Refresh: {str(refresh)}, Access: {str(refresh.access_token)}")
-            return Response({'message': 'Login successful!'}, status=status.HTTP_200_OK)
+            access_token = str(refresh.access_token)
+            student_data = {
+                'message': 'Login successful!',
+                'access_token': access_token,
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    # Add other user-related data here if needed
+                }
+            }
+            return Response(student_data, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        
     
 class TeacherSignupView(generics.CreateAPIView):
     serializer_class = TeacherSignUpSerializer
@@ -72,6 +83,7 @@ class TeacherLoginView(APIView):
         teacher = TeacherBackend().authenticate(request, email=identifier, password=password)
         if teacher is None:
             teacher = TeacherBackend().authenticate(request, username=identifier, password=password)
+        
 
         print(f"Authentication result: {teacher}")
         
