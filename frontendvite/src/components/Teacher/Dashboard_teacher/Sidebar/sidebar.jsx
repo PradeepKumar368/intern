@@ -18,7 +18,9 @@ export default function Sidebar({ children }) {
   useEffect(() => {
     const fetchTeacherProfile = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/teacherprofile/");
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/teacherprofile/"
+        );
         if (response.ok) {
           const data = await response.json();
           setTeacherProfile(data);
@@ -39,13 +41,20 @@ export default function Sidebar({ children }) {
         {/* Sidebar header */}
         <div className="p-4 pb-2 flex justify-between items-center">
           {/* Sidebar logo */}
-          <img
+          {/* <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
               expanded ? "w-32" : "w-0"
             }`}
             alt=""
-          />
+          /> */}
+          <h4
+            className={`overflow-hidden transition-all ${
+              expanded ? "w-full" : "w-0"
+            }`}
+          >
+            eGyanam Advance
+          </h4>
           {/* Toggle button */}
           <button
             onClick={toggleSidebar}
@@ -70,7 +79,9 @@ export default function Sidebar({ children }) {
               <div
                 className={`
                   flex justify-between items-center
-                  overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+                  overflow-hidden transition-all ${
+                    expanded ? "w-52 ml-3" : "w-0"
+                  }
               `}
               >
                 <div className="leading-4">
@@ -94,7 +105,6 @@ export default function Sidebar({ children }) {
     </aside>
   );
 }
-
 
 // Sidebar item component
 export function SidebarItem({ icon, text, active, alert }) {

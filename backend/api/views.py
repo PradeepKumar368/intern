@@ -1,16 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import SignUpSerializer,TeacherSignUpSerializer,StudentProfileSerializer,TeacherProfileSerializer
+from .serializers import SignUpSerializer, TeacherSignUpSerializer, StudentProfileSerializer, TeacherProfileSerializer
 from rest_framework import generics
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import login,authenticate
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from django.contrib.auth import login, authenticate
+from django.http import JsonResponse
 from authentication.backends import TeacherBackend
-from rest_framework_simplejwt.tokens import AccessToken
-from authentication.models import Teacher,CustomUser
+from authentication.models import Teacher, CustomUser
 
 class SignUpView(generics.CreateAPIView):
     serializer_class = SignUpSerializer
+
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
@@ -18,6 +19,9 @@ class SignUpView(generics.CreateAPIView):
             print(f"User {user_data['email']} created successfully.")
             access_token = response.data.get('access')
             print("Token Payload:", AccessToken(access_token).payload)
+            
+            # Set access token in cookies
+            response.set_cookie('auth_token', access_token)
         return response
 
 class LoginView(APIView):
@@ -33,7 +37,7 @@ class LoginView(APIView):
             user = authenticate(request, username=identifier, password=password)
 
         print(f"Authentication result: {user}")
-        
+
         if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)
@@ -48,11 +52,14 @@ class LoginView(APIView):
                     # Add other user-related data here if needed
                 }
             }
-            return Response(student_data, status=status.HTTP_200_OK)
+
+            # Set access token in cookies
+            response = JsonResponse(student_data)
+            response.set_cookie('auth_token', access_token)
+            return response
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-    
+
 class TeacherSignupView(generics.CreateAPIView):
     serializer_class = TeacherSignUpSerializer
 
@@ -79,13 +86,17 @@ class TeacherSignupView(generics.CreateAPIView):
                 }
 
                 # Return the constructed response data
-                return Response(teacher_data_response, status=status.HTTP_201_CREATED)
+                response = JsonResponse(teacher_data_response)
+
+                # Set access token in cookies
+                response.set_cookie('auth_token', str(access_token))
+                return response
 
             except Teacher.DoesNotExist:
                 print("Teacher not found in the database.")
 
         return response
-    
+
 class TeacherLoginView(APIView):
     def post(self, request):
         identifier = request.data.get('identifier')
@@ -97,10 +108,9 @@ class TeacherLoginView(APIView):
         teacher = TeacherBackend().authenticate(request, email=identifier, password=password)
         if teacher is None:
             teacher = TeacherBackend().authenticate(request, username=identifier, password=password)
-        
 
         print(f"Authentication result: {teacher}")
-        
+
         if teacher is not None:
             login(request, teacher)
             refresh = RefreshToken.for_user(teacher)
@@ -116,14 +126,17 @@ class TeacherLoginView(APIView):
                 }
             }
 
-            return Response(teacher_data, status=status.HTTP_200_OK)
+            # Set access token in cookies
+            response = JsonResponse(teacher_data)
+            response.set_cookie('auth_token', access_token)
+            return response
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+
 class TeacherProfileView(generics.ListAPIView):
     serializer_class = TeacherProfileSerializer
     queryset = Teacher.objects.all()
-    
+
 class StudentProfileView(generics.ListAPIView):
     serializer_class = StudentProfileSerializer
     queryset = CustomUser.objects.all()
