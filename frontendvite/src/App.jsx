@@ -14,6 +14,7 @@ import NewVideo from './components/Teacher/NewVideo';
 import TeacherDashboard from './components/Teacher/Dashboard_teacher/Teacher_dashboard';
 import CourseCreate from './components/Courses/CreateCourse';
 import EditCourse from './components/Courses/EditCourse';
+import EditLecture from './components/Courses/EditLectures';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/teacherdashboard" element={<TeacherDashboard/>} />
           <Route path="/coursecreate" element={<CourseCreate/>} />
           <Route path="/editcourse" element={<EditCourse/>} />
+          <Route path="/lecture" element={<EditLecture/>} />
         </Routes>
       </div>
     </Router>

@@ -44,7 +44,7 @@ class LoginView(APIView):
     
 class TeacherSignupView(generics.CreateAPIView):
     serializer_class = TeacherSignUpSerializer
-    
+
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
@@ -56,6 +56,20 @@ class TeacherSignupView(generics.CreateAPIView):
                 teacher = Teacher.objects.get(email=teacher_data['email'])
                 access_token = AccessToken.for_user(teacher)
                 print("Token Payload:", access_token.payload)
+
+                # Construct the desired response data
+                teacher_data_response = {
+                    'access_token': str(access_token),
+                    'user': {
+                        'id': teacher.id,
+                        'username': teacher.username,
+                        # Add other user-related data here if needed
+                    }
+                }
+
+                # Return the constructed response data
+                return Response(teacher_data_response, status=status.HTTP_201_CREATED)
+
             except Teacher.DoesNotExist:
                 print("Teacher not found in the database.")
 

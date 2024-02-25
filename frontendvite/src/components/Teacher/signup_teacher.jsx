@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form,Button } from 'react-bootstrap';
+import { useAuth } from '../Auth/AuthContext';
 
 function TeacherSignup() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  const { login } = useAuth();
+  
   const handleSignup = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/teachersignup/', {
@@ -19,8 +21,11 @@ function TeacherSignup() {
       });
 
       if (response.ok) {
+        const data = await response.json();
         console.log('Teacher signup successful!');
-        navigate('/NewVideo');
+        console.log(data.access_token, data.user.id);
+        login(data.access_token, data.user.id);
+        navigate('/teacherdashboard');
         // You can redirect or perform any other action upon successful signup
       } else {
         console.error('Teacher signup failed.');

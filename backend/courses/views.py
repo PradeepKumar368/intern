@@ -1,6 +1,6 @@
 # courses/views.py
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets,status
 from .models import Course, Module, Lecture, Assignment, Note
 from .serializers import CourseSerializer, ModuleSerializer, LectureSerializer, AssignmentSerializer, NoteSerializer,CourseCurriculumSerializer
 from rest_framework.response import Response
@@ -91,17 +91,93 @@ class ModuleViewSet(viewsets.ModelViewSet):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
 
+    def get_queryset(self):
+        course_id = self.request.query_params.get('course')
+        
+        if course_id:
+            return Module.objects.filter(course_id=course_id)
+        else:
+            return Module.objects.all()
+        
+    def create(self, request, *args, **kwargs):
+        course_id = request.data.get('course') or request.query_params.get('course')
+        if not course_id:
+            return Response({'error': 'Course ID is required for module creation.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(course_id=course_id)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 class LectureViewSet(viewsets.ModelViewSet):
     queryset = Lecture.objects.all()
     serializer_class = LectureSerializer
+
+    def get_queryset(self):
+        module_id = self.request.query_params.get('module')
+        
+        if module_id:
+            return Lecture.objects.filter(module_id=module_id)
+        else:
+            return Lecture.objects.all()
+        
+    def create(self, request, *args, **kwargs):
+        module_id = request.data.get('module') or request.query_params.get('module')
+        if not module_id:
+            return Response({'error': 'module_id is required for lecture creation.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(module_id=module_id)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class AssignmentViewSet(viewsets.ModelViewSet):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
 
+    def get_queryset(self):
+        module_id = self.request.query_params.get('module')
+        
+        if module_id:
+            return Assignment.objects.filter(module_id=module_id)
+        else:
+            return Assignment.objects.all()
+        
+    def create(self, request, *args, **kwargs):
+        module_id = request.data.get('module') or request.query_params.get('module')
+        if not module_id:
+            return Response({'error': 'module_id is required for assignment creation.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(module_id=module_id)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+    def get_queryset(self):
+        module_id = self.request.query_params.get('module')
+        
+        if module_id:
+            return Note.objects.filter(module_id=module_id)
+        else:
+            return Note.objects.all()
+        
+    def create(self, request, *args, **kwargs):
+        module_id = request.data.get('module') or request.query_params.get('module')
+        if not module_id:
+            return Response({'error': 'module_id is required for notes creation.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(module_id=module_id)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 """course_creation_course            
 

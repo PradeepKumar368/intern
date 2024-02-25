@@ -4,13 +4,14 @@ import { useAuth } from '@/components/Auth/AuthContext';
 import { Link } from 'react-router-dom';
 
 function TeacherDashboard() {
+  // const { isAuthenticated, token, userId } = useAuth();
+  // console.log('TeacherDashboard: Authentication state -', { isAuthenticated, token, userId });
   const { token } = useAuth(); // Destructure user and token from useAuth
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        // const token = await getToken(); // Remove this line and use the token directly
         console.log(token);
         const response = await fetch('http://localhost:8000/api/courses/', {
           headers: {

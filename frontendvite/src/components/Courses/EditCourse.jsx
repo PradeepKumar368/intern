@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useAuth } from '../Auth/AuthContext';
+import EditModule from './EditModule';
 
 const EditCourse = () => {
   const { token } = useAuth();
+  // console.log('EditCourse : Authentication state -', { token });
   const location = useLocation();
   const courseId = new URLSearchParams(location.search).get('courseId');
-  console.log(courseId);
+  // console.log(courseId);
   const [course, setCourse] = useState({});
+  const [courseMode, setcourseMode] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [editedDetails, setEditedDetails] = useState({
     title: '',
@@ -16,6 +19,7 @@ const EditCourse = () => {
     price: 0,
     mode: '',
     category: '',
+    PreviewVideo: '',
     // Add other course details here
   });
 
@@ -31,12 +35,14 @@ const EditCourse = () => {
         if (response.ok) {
           const data = await response.json();
           setCourse(data);
+          setcourseMode(data.mode);
           setEditedDetails({
             title: data.title,
             description: data.description,
             price: data.price,
             mode: data.mode,
             category: data.category,
+            preview_video: data.PreviewVideo
             // Set other course details accordingly
           });
         } else {
@@ -91,6 +97,7 @@ const EditCourse = () => {
       <p>Price: {course.price}</p>
       <p>Mode: {course.mode}</p>
       <p>Category: {course.category}</p>
+      <p>Preview: {course.preview_video}</p>
       {/* Add other course details display here */}
       <Button variant="primary" onClick={handleShowModal}>
         Edit Details
@@ -152,6 +159,16 @@ const EditCourse = () => {
               />
             </Form.Group>
 
+            <Form.Group controlId="formCategory">
+              <Form.Label>PreviewVideo</Form.Label>
+              <Form.Control
+                type="text"
+                name="preview_video"
+                value={editedDetails.PreviewVideo}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
             {/* Add other form fields for course details here */}
           </Form>
         </Modal.Body>
@@ -164,6 +181,7 @@ const EditCourse = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <EditModule courseId={courseId} courseMode={courseMode} />
     </div>
   );
 };
