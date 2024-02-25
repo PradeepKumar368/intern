@@ -5,16 +5,18 @@ import LandingPage from './components/LandingPage/LandingPage';
 import SignUp from './components/SignUp/SignUp'; // Import SignUp component
 import Login from './components/Login/Login'; // Import Login component
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './components/Navbar/Navbar';
+import NavBar from './components/LandingPage/Navbar/Navbar';
 import TeacherSignup from './components/Teacher/signup_teacher';
 import TeacherLogin from './components/Teacher/login_teacher';
-import CoursePlayer from './components/CoursePlayer/CoursePlayer';
+import CoursePlayer from './components/Courses/CoursePlayer/CoursePlayer';
 import ViewCourses from './components/Courses/ViewCourses';
 import NewVideo from './components/Teacher/NewVideo';
 import TeacherDashboard from './components/Teacher/Dashboard_teacher/Teacher_dashboard';
 import CourseCreate from './components/Courses/CreateCourse';
 import EditCourse from './components/Courses/EditCourse';
 import EditLecture from './components/Courses/EditLectures';
+import CourseCategory from './components/Courses/Courses_Category/coursecategory';
+import Coursedetailspage from './components/CourseDetailsPage/coursedetailspage';
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
           <Route path="/coursecreate" element={<CourseCreate/>} />
           <Route path="/editcourse" element={<EditCourse/>} />
           <Route path="/lecture" element={<EditLecture/>} />
+          <Route path="/category" element={<CourseCategory/>} />
+          <Route path="/coursedetails" element={<Coursedetailspage/>} />
         </Routes>
       </div>
     </Router>
