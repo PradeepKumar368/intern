@@ -9,13 +9,13 @@ import { HiChartPie, HiViewBoards, HiInbox, HiUser, HiShoppingBag, HiArrowSmRigh
 function TeacherDashboard() {
   // const { isAuthenticated, token, userId } = useAuth();
   // console.log('TeacherDashboard: Authentication state -', { isAuthenticated, token, userId });
-  const { token } = useAuth(); // Destructure user and token from useAuth
+  const { token,userId } = useAuth(); // Destructure user and token from useAuth
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        console.log(token);
+        console.log(token,userId);
         const response = await fetch('http://localhost:8000/api/courses/', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ function TeacherDashboard() {
 
   return (
     <div className="flex">
-      <Sidebar>
+      <Sidebar teacher_id={userId}>
         <SidebarItem icon={<HiChartPie />} text="Dashboard" />
         <SidebarItem icon={<HiViewBoards />} text="Kanban" label="Pro" labelColor="dark" />
         <SidebarItem icon={<HiInbox />} text="Inbox" alert={3} />

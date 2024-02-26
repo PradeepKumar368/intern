@@ -25,7 +25,6 @@ function TeacherLogin() {
         console.log('Teacher login successful!', data);
         console.log(data.access_token, data.user.id);
         login(data.access_token, data.user.id);
-
         navigate('/teacherdashboard');
         // You can redirect or perform any other action upon successful login
       } else {

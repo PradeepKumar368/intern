@@ -5,10 +5,9 @@ import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 const SidebarContext = React.createContext();
 
 // Sidebar component
-export default function Sidebar({ children }) {
+export default function Sidebar({ children,teacher_id }) {
   const [expanded, setExpanded] = useState(true);
   const [teacherProfile, setTeacherProfile] = useState(null);
-
   // Toggle sidebar expansion
   const toggleSidebar = () => {
     setExpanded((curr) => !curr);
@@ -19,7 +18,7 @@ export default function Sidebar({ children }) {
     const fetchTeacherProfile = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/teacherprofile/"
+          `http://127.0.0.1:8000/api/teacherprofile/${teacher_id}`
         );
         if (response.ok) {
           const data = await response.json();
