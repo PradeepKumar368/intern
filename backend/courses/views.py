@@ -9,10 +9,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import permission_classes,authentication_classes
 from authentication.models import Teacher
 
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         print("Executing get_queryset method.")
@@ -30,6 +30,27 @@ class CourseViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Associate the authenticated teacher with the course upon creation
         serializer.save(teacher=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        # Get the auth_token from the request's cookies
+        auth_token = request.COOKIES.get('auth_token')
+        
+        # If auth_token is available, include it in the Authorization header
+        if auth_token:
+            self.headers['Authorization'] = f'Bearer {auth_token}'
+        
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        # Get the auth_token from the request's cookies
+        auth_token = request.COOKIES.get('auth_token')
+        
+        # If auth_token is available, include it in the Authorization header
+        if auth_token:
+            self.headers['Authorization'] = f'Bearer {auth_token}'
+        
+        return super().update(request, *args, **kwargs)
+
 
 class CourseDetailViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Course.objects.all()
@@ -78,6 +99,11 @@ class CourseCurriculumViewSet(viewsets.ReadOnlyModelViewSet):
             'course': {
                 'id': instance['course'].id,
                 'title': instance['course'].title,
+                'description': instance['course'].description,
+                'price': instance['course'].price,
+                'mode': instance['course'].mode,
+                'category': instance['course'].category,
+                'preview_video': instance['course'].preview_video,
             },
             'modules': ModuleSerializer(instance['modules'], many=True).data,
             'lectures': LectureSerializer(instance['lectures'], many=True).data,

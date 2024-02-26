@@ -31,7 +31,7 @@ const EditCourse = () => {
     price: 0,
     mode: "",
     category: "",
-    previewVideo: "",
+    preview_video: "",
     // Add other course details here
   }); // State to store edited course details
 
@@ -57,7 +57,7 @@ const EditCourse = () => {
             price: data.price,
             mode: data.mode,
             category: data.category,
-            previewVideo: data.preview_video,
+            preview_video: data.preview_video,
           });
         } else {
           console.error("Failed to fetch course details.");
@@ -240,8 +240,8 @@ const EditCourse = () => {
                   <Form.Control
                     className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
                     type="text"
-                    name="previewVideo"
-                    value={editedDetails.previewVideo || ""}
+                    name="preview_video"
+                    value={editedDetails.preview_video || ""}
                     onChange={handleChange}
                   />
                 </Form.Group>
