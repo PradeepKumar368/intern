@@ -3,10 +3,30 @@ import Curriculum from "./components/curriculum";
 import Hero from "./components/hero";
 import "./coursedetailspage.css";
 import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom'; 
 
 const Coursedetailspage = () => {
   const [courseDetails, setCourseDetails] = useState(null);
-  const courseId = 3; // Replace '3' with the courseId you want to fetch
+  const { courseId } = useParams();
+  const [courses, setcourses] = useState([]);
+
+  useEffect(() => {
+    const fetchcoursedetail = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/coursedetail/");
+        if (response.ok) {
+          const data = await response.json();
+          setcourses(data);
+        } else {
+          console.error("failed to fetch course detail");
+        }
+      } catch (error) {
+        console.error("Error fetching course detail: ", error);
+      }
+    };
+
+    fetchcoursedetail();
+  }, []);
 
   useEffect(() => {
     const fetchCourseDetails = async () => {
@@ -61,7 +81,13 @@ const Coursedetailspage = () => {
           </div>
         </div>
 
-        <Coursecard />
+        <div className=" flex justify-center items-center py-20">
+        <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+          {courses.map((course) => (
+            <Coursecard key={course.id} course={course} />
+          ))}
+        </div>
+      </div>
       </div>
     </div>
   );
