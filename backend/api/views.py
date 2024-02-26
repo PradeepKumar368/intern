@@ -133,10 +133,18 @@ class TeacherLoginView(APIView):
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-class TeacherProfileView(generics.ListAPIView):
+class TeacherProfileView(generics.RetrieveAPIView):
     serializer_class = TeacherProfileSerializer
     queryset = Teacher.objects.all()
+
+    def get_object(self):
+        teacher_id = self.kwargs.get('pk')
+        return self.get_queryset().get(id=teacher_id)
 
 class StudentProfileView(generics.ListAPIView):
     serializer_class = StudentProfileSerializer
     queryset = CustomUser.objects.all()
+
+    def get_object(self):
+        CustomUser_id = self.kwargs.get('pk')
+        return self.get_queryset().get(id=CustomUser_id)

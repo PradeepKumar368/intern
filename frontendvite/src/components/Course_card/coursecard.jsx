@@ -1,4 +1,30 @@
-const Coursecard = () => {
+import { useEffect, useState } from "react";
+
+const Coursecard = (props) => {
+  const course = props.course;
+  const teacherId = course.teacher;
+  const [teacher,setteacher] = useState([]);
+
+  useEffect(() => {
+    const fetchteacherdetail = async() => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/teacherprofile/${teacherId}`);
+        if(response.ok){
+          const data = await response.json();
+          setteacher(data);
+          console.log('teacher detail: ',teacher);
+        }else{
+          console.error('failed to fetch teacher detail');
+        }
+      } catch (error) {
+        console.error('Error while fetching teacher detail:', error);
+      }
+    }
+
+    fetchteacherdetail();
+
+  },[]);
+  
     return (
       <div className=" flex justify-center items-center py-20">
         <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
@@ -8,7 +34,7 @@ const Coursecard = () => {
               <img className="w-full rounded-xl" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Colors" />
               <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">FREE</p>
             </div>
-            <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">Javascript Bootcamp for Absolute Beginners</h1>
+            <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{teacher.username}</h1>
             <div className="my-4">
               <div className="flex space-x-1 items-center">
                 <span>
