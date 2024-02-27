@@ -71,6 +71,7 @@ const EditNote = (props) => {
       if (response.ok) {
         console.log("Note details updated successfully!");
         setShowModal(false);
+        window.location.reload();
       } else {
         console.error("Failed to update Note details.");
       }
@@ -96,7 +97,7 @@ const EditNote = (props) => {
       if (response.ok) {
         console.log("Note added successfully!");
         setShowModal(false);
-        // window.location.reload();
+        window.location.reload();
       } else {
         console.error("Failed to add Note.");
       }
@@ -123,7 +124,8 @@ const EditNote = (props) => {
               <Table.HeadCell>Edit</Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
-              {Notes.map((note) => (
+              {Notes.length > 0 ? (
+                Notes.map((note) => (
                 <Table.Row
                   key={note.id}
                   className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -141,7 +143,16 @@ const EditNote = (props) => {
                     </button>
                   </Table.Cell>
                 </Table.Row>
-              ))}
+                ))
+              ): (
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    No notes available
+                  </Table.Cell>
+                  <Table.Cell>No link</Table.Cell>
+                  <Table.Cell>No action</Table.Cell>
+                </Table.Row>
+              )}
             </Table.Body>
           </Table>
         </div>

@@ -1,4 +1,4 @@
-import Coursecard from "../Course_card/coursecard";
+import Coursecard from "../Courses/Course_card/coursecard";
 import Curriculum from "./components/curriculum";
 import Hero from "./components/hero";
 import "./coursedetailspage.css";

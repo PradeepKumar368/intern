@@ -1,9 +1,10 @@
-import Carousal from "../Carousal/Carousal";
 import Searchbar from "./Search_bar/searchbar";
 import Trusted_Company from "./Trusted_Company/trusted_company";
 import Testimonial from "./testimonial/testimonial";
-import Coursecard from "../Course_card/coursecard";
+import Coursecard from "../Courses/Course_card/coursecard";
 import { useState, useEffect } from "react";
+import NavBar from "./Navbar/Navbar";
+import Hero from "./Hero/Hero";
 
 const LandingPage = () => {
   const [courses, setcourses] = useState([]);
@@ -28,8 +29,9 @@ const LandingPage = () => {
 
   return (
     <div>
-      <Carousal />
+      <NavBar/>
       <Searchbar />
+      <Hero />
       <Trusted_Company />
       <Testimonial />
       <div className=" flex justify-center items-center py-20">

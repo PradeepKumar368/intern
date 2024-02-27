@@ -2,10 +2,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/styles.css'; // Update the path accordingly
 import LandingPage from './components/LandingPage/LandingPage';
-import SignUp from './components/SignUp/SignUp'; // Import SignUp component
-import Login from './components/Login/Login'; // Import Login component
+import SignUp from './components/LandingPage/SignUp/SignUp'; // Import SignUp component
+import Login from './components/LandingPage/Login/Login'; // Import Login component
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './components/LandingPage/Navbar/Navbar';
 import TeacherSignup from './components/Teacher/signup_teacher';
 import TeacherLogin from './components/Teacher/login_teacher';
 import CoursePlayer from './components/Courses/CoursePlayer/CoursePlayer';
@@ -17,12 +16,12 @@ import EditCourse from './components/Courses/EditCourse';
 import EditLecture from './components/Courses/EditLectures';
 import CourseCategory from './components/Courses/Courses_Category/coursecategory';
 import Coursedetailspage from './components/CourseDetailsPage/coursedetailspage';
+import Foter from './components/LandingPage/Footer/footer';
 
 const App = () => {
   return (
     <Router>
       <div>
-        <NavBar/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<LandingPage />} />
@@ -40,6 +39,7 @@ const App = () => {
           <Route path="/category" element={<CourseCategory/>} />
           <Route path="/coursedetails/:courseId" element={<Coursedetailspage/>} />
         </Routes>
+        <Foter/>
       </div>
     </Router>
   );

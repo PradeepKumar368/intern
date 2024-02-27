@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CourseCard from '../../Course_card/coursecard'; // Import the CourseCard component
+import CourseCard from '../Course_card/coursecard'; // Import the CourseCard component
 
 const CourseCategory = () => {
   // Sample data for categories and courses

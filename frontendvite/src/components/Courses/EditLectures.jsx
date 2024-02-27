@@ -64,6 +64,7 @@ function EditLecture(props) {
       if (response.ok) {
         console.log("Lecture details updated successfully!");
         setShowModal(false);
+        window.location.reload();
       } else {
         console.error("Failed to update lecture details.");
       }
@@ -89,6 +90,7 @@ function EditLecture(props) {
       if (response.ok) {
         console.log("Lecture added successfully!");
         setShowModal(false);
+        window.location.reload();
         // Fetch updated lectures or perform necessary actions
       } else {
         console.error("Failed to add lecture.");
@@ -140,8 +142,8 @@ function EditLecture(props) {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   No lectures available
                 </Table.Cell>
-                <Table.Cell>--</Table.Cell>
-                <Table.Cell>--</Table.Cell>
+                <Table.Cell>No Link</Table.Cell>
+                <Table.Cell>No Action</Table.Cell>
               </Table.Row>
             )}
           </Table.Body>
@@ -194,7 +196,7 @@ function EditLecture(props) {
           </Modal.Footer>
         </Modal>
       </div>
-      <div className="flex justify-center mb-3">
+      <div className="flex justify-center mb-2 mt-2">
         <Button
           variant="outline-secondary"
           size="sm"

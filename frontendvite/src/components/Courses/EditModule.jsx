@@ -66,6 +66,7 @@ const EditModule = (props) => {
       if (response.ok) {
         console.log("Module details updated successfully!");
         setShowModal(false);
+        window.location.reload();
       } else {
         console.error("Failed to update module details.");
       }
@@ -92,6 +93,7 @@ const EditModule = (props) => {
         console.log("Module added successfully!");
         setShowAddModuleForm(false); // Hide the form after successfully adding the module
         setNewModuleTitle(""); // Clear the input field
+        window.location.reload();
       } else {
         console.error("Failed to add module.");
       }

@@ -19,7 +19,7 @@ import Sidebar, {
 } from "../Teacher/Dashboard_teacher/Sidebar/sidebar";
 
 const EditCourse = () => {
-  const { token } = useAuth(); // Get authentication token from useAuth hook
+  const { token , userId } = useAuth(); // Get authentication token from useAuth hook
   const location = useLocation(); // Get current location using useLocation hook
   const courseId = new URLSearchParams(location.search).get("courseId"); // Extract courseId from query params
   const [course, setCourse] = useState({}); // State to store course details
@@ -93,6 +93,7 @@ const EditCourse = () => {
       if (response.ok) {
         console.log("Course details updated successfully!");
         handleCloseModal();
+        window.location.reload();
       } else {
         console.error("Failed to update course details.");
       }
@@ -112,7 +113,7 @@ const EditCourse = () => {
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="flex">
-        <Sidebar>
+        <Sidebar teacher_id={userId}>
           <SidebarItem icon={<HiChartPie />} text="Dashboard" />
           <SidebarItem
             icon={<HiViewBoards />}

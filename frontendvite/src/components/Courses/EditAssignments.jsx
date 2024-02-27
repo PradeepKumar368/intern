@@ -71,6 +71,7 @@ const EditAssignment = (props) => {
       if (response.ok) {
         console.log("Assignment details updated successfully!");
         setShowModal(false);
+        window.location.reload();
       } else {
         console.error("Failed to update Assignment details.");
       }
@@ -96,7 +97,7 @@ const EditAssignment = (props) => {
       if (response.ok) {
         console.log("Assignment added successfully!");
         setShowModal(false);
-        // window.location.reload();
+        window.location.reload();
       } else {
         console.error("Failed to add Assignment.");
       }

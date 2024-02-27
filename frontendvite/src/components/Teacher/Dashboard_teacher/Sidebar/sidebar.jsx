@@ -5,7 +5,7 @@ import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 const SidebarContext = React.createContext();
 
 // Sidebar component
-export default function Sidebar({ children,teacher_id }) {
+export default function Sidebar({ children, teacher_id }) {
   const [expanded, setExpanded] = useState(true);
   const [teacherProfile, setTeacherProfile] = useState(null);
   // Toggle sidebar expansion
@@ -47,13 +47,15 @@ export default function Sidebar({ children,teacher_id }) {
             }`}
             alt=""
           /> */}
-          <h4
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-full" : "w-0"
-            }`}
-          >
-            eGyanam Advance
-          </h4>
+          <a href="/" className="cursor-pointer">
+            <h4
+              className={`overflow-hidden transition-all ${
+                expanded ? "w-full" : "w-0"
+              }`}
+            >
+              eGyanam Advance
+            </h4>
+          </a>
           {/* Toggle button */}
           <button
             onClick={toggleSidebar}
@@ -65,15 +67,22 @@ export default function Sidebar({ children,teacher_id }) {
 
         {/* Provide context value */}
         <SidebarContext.Provider value={{ expanded }}>
+          {/* Render children */}
+          <ul className="flex-1 px-3">{children}</ul>
           {/* Render teacher profile details */}
           {teacherProfile && (
-            <div className="border-b p-3">
+            <div className="border-t p-3">
               {/* Teacher avatar */}
-              <img
+              {/* <img
                 src={teacherProfile.avatar}
                 alt=""
                 className="w-10 h-10 rounded-md"
-              />
+              /> */}
+              {/* Display first letter of teacher's name */}
+              <div className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-300">
+                {teacherProfile.username.charAt(0).toUpperCase()}
+              </div>
+
               {/* Teacher details */}
               <div
                 className={`
@@ -96,9 +105,6 @@ export default function Sidebar({ children,teacher_id }) {
               </div>
             </div>
           )}
-
-          {/* Render children */}
-          <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
       </nav>
     </aside>
