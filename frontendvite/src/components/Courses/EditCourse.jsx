@@ -1,29 +1,41 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Button, Modal, Form } from "react-bootstrap";
-import { useAuth } from "../Auth/AuthContext";
-import ReactPlayer from "react-player";
-import EditModule from './EditModule';
+import { useState, useEffect } from "react"; // Import React library and necessary hooks
+import { Modal, Form } from "react-bootstrap"; // Import necessary components from react-bootstrap
+import { useLocation } from "react-router-dom"; // Import useLocation hook
+import { useAuth } from "../Auth/AuthContext"; // Import useAuth hook
+// import ReactPlayer from "react-player"; // Import ReactPlayer component
+import EditModule from "./EditModule"; // Import EditModule component
+import { Table } from "flowbite-react";
+import {
+  HiChartPie,
+  HiViewBoards,
+  HiInbox,
+  HiUser,
+  HiShoppingBag,
+  HiArrowSmRight,
+  HiTable,
+} from "react-icons/hi"; // Import icons
+import Sidebar, {
+  SidebarItem,
+} from "../Teacher/Dashboard_teacher/Sidebar/sidebar";
 
-const EditCourse = () => {           //preview video not getting updated on changing
-  const { token } = useAuth();
-  // console.log('EditCourse : Authentication state -', { token });
-  const location = useLocation();
-  const courseId = new URLSearchParams(location.search).get('courseId');
-  console.log(courseId);
-  const [course, setCourse] = useState({});
-  const [courseMode, setcourseMode] = useState({});
-  const [showModal, setShowModal] = useState(false);
+const EditCourse = () => {
+  const { token , userId } = useAuth(); // Get authentication token from useAuth hook
+  const location = useLocation(); // Get current location using useLocation hook
+  const courseId = new URLSearchParams(location.search).get("courseId"); // Extract courseId from query params
+  const [course, setCourse] = useState({}); // State to store course details
+  const [courseMode, setCourseMode] = useState(""); // State to store course mode
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [editedDetails, setEditedDetails] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     price: 0,
-    mode: '',
-    category: '',
-    PreviewVideo: '',
+    mode: "",
+    category: "",
+    preview_video: "",
     // Add other course details here
-  });
+  }); // State to store edited course details
 
+  // Fetch course details on component mount or courseId change
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
@@ -38,15 +50,14 @@ const EditCourse = () => {           //preview video not getting updated on chan
         if (response.ok) {
           const data = await response.json();
           setCourse(data);
-          setcourseMode(data.mode);
+          setCourseMode(data.mode);
           setEditedDetails({
             title: data.title,
             description: data.description,
             price: data.price,
             mode: data.mode,
             category: data.category,
-            preview_video: data.PreviewVideo
-            // Set other course details accordingly
+            preview_video: data.preview_video,
           });
         } else {
           console.error("Failed to fetch course details.");
@@ -59,9 +70,12 @@ const EditCourse = () => {           //preview video not getting updated on chan
     fetchCourseDetails();
   }, [courseId, token]);
 
+  // Handler to open modal for editing course details
   const handleShowModal = () => setShowModal(true);
+  // Handler to close modal
   const handleCloseModal = () => setShowModal(false);
 
+  // Handler to save edited course details
   const handleEditDetails = async () => {
     try {
       const response = await fetch(
@@ -79,6 +93,7 @@ const EditCourse = () => {           //preview video not getting updated on chan
       if (response.ok) {
         console.log("Course details updated successfully!");
         handleCloseModal();
+        window.location.reload();
       } else {
         console.error("Failed to update course details.");
       }
@@ -87,6 +102,7 @@ const EditCourse = () => {           //preview video not getting updated on chan
     }
   };
 
+  // Handler for input change in the edit form
   const handleChange = (e) => {
     setEditedDetails({
       ...editedDetails,
@@ -96,143 +112,160 @@ const EditCourse = () => {           //preview video not getting updated on chan
 
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <div className="w-1/2 aspect-video">
-          <ReactPlayer
-            className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 overflow-hidden "
-            controls
-            url={editedDetails.preview_video}
-            width="100%"
-            height="100%"
-            onError={(e) => console.error("Error loading video:", e)}
+      <div className="flex">
+        <Sidebar teacher_id={userId}>
+          <SidebarItem icon={<HiChartPie />} text="Dashboard" />
+          <SidebarItem
+            icon={<HiViewBoards />}
+            text="Kanban"
+            label="Pro"
+            labelColor="dark"
           />
+          <SidebarItem icon={<HiInbox />} text="Inbox" alert={3} />
+          <SidebarItem icon={<HiUser />} text="Users" />
+          <SidebarItem icon={<HiShoppingBag />} text="Products" />
+          <SidebarItem icon={<HiArrowSmRight />} text="Sign In" />
+          <SidebarItem icon={<HiTable />} text="Sign Up" />
+        </Sidebar>
+        <div className="ml-20 border border-black mt-2">
+          <div className="overflow-x-auto">
+            <Table>
+              <Table.Head>
+                <Table.HeadCell>Title</Table.HeadCell>
+                <Table.HeadCell>Price</Table.HeadCell>
+                <Table.HeadCell>Mode</Table.HeadCell>
+                <Table.HeadCell>Category</Table.HeadCell>
+                <Table.HeadCell>Description</Table.HeadCell>
+                <Table.HeadCell>Edit</Table.HeadCell>
+              </Table.Head>
+              <Table.Body className="divide-y">
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell>
+                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      {course.title}
+                    </h5>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <p className="text-gray-600">${course.price}</p>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <p className="text-gray-600">{courseMode}</p>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <p className="text-gray-600">{course.category}</p>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <p className="leading-relaxed">{course.description}</p>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                      onClick={handleShowModal}
+                    >
+                      Edit
+                    </button>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </div>
+          <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <EditModule courseId={courseId} courseMode={courseMode} />
           </div>
 
-          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              Title : {course.title}
-            </h1>
-            <div className="flex-col mb-4 realtive">
-              <p className="text-gray-600">Price: ${course.price}</p>
-              <p className=" text-gray-600">Mode: {course.mode}</p>
-              <p className=" text-gray-600">Category: {course.category}</p>
-              <p className="leading-relaxed">
-                Description: {course.description}
-              </p>
-            </div>
-            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+          {/* Modal for editing course details */}
+          <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Course Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group controlId="formTitle">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="title"
+                    value={editedDetails.title || ""}
+                    onChange={handleChange}
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formDescription">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={4}
+                    name="description"
+                    value={editedDetails.description || ""}
+                    onChange={handleChange}
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formPrice">
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                    type="number"
+                    name="price"
+                    value={editedDetails.price || 0}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formMode">
+                  <Form.Label>Mode</Form.Label>
+                  <Form.Control
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                    type="text"
+                    name="mode"
+                    value={editedDetails.mode || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formCategory">
+                  <Form.Label>Category</Form.Label>
+                  <Form.Control
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                    type="text"
+                    name="category"
+                    value={editedDetails.category || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formPreviewVideo">
+                  <Form.Label>Preview Video</Form.Label>
+                  <Form.Control
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                    type="text"
+                    name="preview_video"
+                    value={editedDetails.preview_video || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
               <button
-                type="button"
-                className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                onClick={handleShowModal}
+                className="bg-gray-300 text-gray-700 hover:bg-gray-400 py-2 px-4 rounded-md mr-2"
+                onClick={handleCloseModal}
               >
-                Edit Details
+                Close
               </button>
-            </div>
-          </div>
+              <button
+                className="bg-indigo-500 text-white hover:bg-indigo-600 py-2 px-4 rounded-md"
+                onClick={handleEditDetails}
+              >
+                Save Changes
+              </button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
-
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Course Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formTitle">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={editedDetails.title || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formDescription">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="description"
-                value={editedDetails.description || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formPrice">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="number"
-                name="price"
-                value={editedDetails.price || 0}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formMode">
-              <Form.Label>Mode</Form.Label>
-              <Form.Control
-                type="text"
-                name="mode"
-                value={editedDetails.mode || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formCategory">
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                name="category"
-                value={editedDetails.category || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formCategory">
-              <Form.Label>PreviewVideo</Form.Label>
-              <Form.Control
-                type="text"
-                name="preview_video"
-                value={editedDetails.PreviewVideo}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formCategory">
-              <Form.Label>PreviewVideo</Form.Label>
-              <Form.Control
-                type="text"
-                name="preview_video"
-                value={editedDetails.PreviewVideo}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formPreviewVideo">
-              <Form.Label>Preview Video</Form.Label>
-              <Form.Control
-                type="text"
-                name="previewVideo"
-                value={editedDetails.preview_video || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="outline-primary" onClick={handleEditDetails}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <EditModule courseId={courseId} courseMode={courseMode} />
-    </div>
+    </section>
   );
 };
 

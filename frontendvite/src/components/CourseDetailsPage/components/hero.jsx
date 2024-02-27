@@ -1,43 +1,63 @@
+import ReactPlayer from "react-player";
 
-const Hero = () => {
+const Hero = ({ courseDetails }) => {
+  const { title, price, preview_video, description ,category} = courseDetails.course;
   return (
-    <div className="antialiased">
-      <div className="bg-indigo-700 text-indigo-200 md:text-center py-2 px-4">
-        Welcome to {" "}
-        <a href="" className="font-bold underline hover:text-indigo-100">
-          eGyanam Advance
-        </a>
-        . Learn, Explore , {" "}
-        <a href="" className="font-bold underline hover:text-indigo-100">
-          Upskill
-        </a>
-        .
-      </div>
+    <div>
       <div className="bg-white shadow-sm sticky top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
           <div className="flex items-center justify-between md:justify-start">
-            <button type="button" className="md:hidden w-10 h-10 rounded-lg -ml-2 flex justify-center items-center">
-              <svg className="text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            <button
+              type="button"
+              className="md:hidden w-10 h-10 rounded-lg -ml-2 flex justify-center items-center"
+            >
+              <svg
+                className="text-gray-500 w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
-            <a href="#" className="font-bold text-gray-700 text-2xl">
+            <a href="/" className="font-bold text-gray-700 text-2xl">
               eGyanam Advance
             </a>
             <div className="hidden md:flex space-x-3 flex-1 lg:ml-8">
-              <a href="#" className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+              <a
+                href="#"
+                className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              >
                 Cyber Security
               </a>
-              <a href="#" className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+              <a
+                href="#"
+                className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              >
                 AI
               </a>
-              <a href="#" className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+              <a
+                href="#"
+                className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              >
                 Data Science
               </a>
-              <a href="#" className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+              <a
+                href="#"
+                className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              >
                 Blockchain
               </a>
-              <a href="#" className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600">
+              <a
+                href="#"
+                className="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              >
                 More
               </a>
             </div>
@@ -63,7 +83,10 @@ const Hero = () => {
                   />
                 </svg>
               </div>
-              <a href="#" className="flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
+              <a
+                href="#"
+                className="flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner"
+              >
                 <svg
                   className="h-6 w-6 leading-none text-gray-300 stroke-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +140,19 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <div className="antialiased">
+        <div className="bg-indigo-700 text-indigo-200 md:text-center py-2 px-4">
+          Welcome to{" "}
+          <a href="/" className="font-bold underline hover:text-indigo-100">
+            eGyanam Advance
+          </a>
+          . Learn, Explore ,{" "}
+          <a href="" className="font-bold underline hover:text-indigo-100">
+            Upskill
+          </a>
+          .
+        </div>
+      </div>
       <div className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-gray-400 text-sm">
@@ -158,107 +194,85 @@ const Hero = () => {
                 />
               </svg>
             </span>
-            <span>Data Science</span>
+            <span>{category}</span>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-          <div className="flex flex-col md:flex-row -mx-4">
-            <div className="md:flex-1 px-4">
-              <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
-                <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                  <span className="text-5xl">1</span>
-                </div>
-                {/* <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                  <span className="text-5xl">2</span>
-                </div>
-                <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                  <span className="text-5xl">3</span>
-                </div>
-                <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                  <span className="text-5xl">4</span>
-                </div> */}
-              </div>
-              {/* <div className="flex -mx-2 mb-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div className="flex-1 px-2" key={i}>
-                    <button
-                      onClick={() => {
-                        // handle button click logic here
-                      }}
-                      className="focus:outline-none w-full rounded-lg h-24 md:h-32 bg-gray-100 flex items-center justify-center"
-                    >
-                      <span className="text-2xl">{i}</span>
-                    </button>
-                  </div>
-                ))}
-              </div> */}
-            </div>
-            <div className="md:flex-1 px-4">
-              <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
-                Lorem ipsum dolor, sit amet consectetur, adipisicing elit.
-              </h2>
-              <p className="text-gray-500 text-sm">
-                By{" "}
-                <a href="#" className="text-indigo-600 hover:underline">
-                  ABC Company
-                </a>
-              </p>
-              <div className="flex items-center space-x-4 my-4">
-                <div>
-                  <div className="rounded-lg bg-gray-100 flex py-2 px-3">
-                    <span className="text-indigo-400 mr-1 mt-1">$</span>
-                    <span className="font-bold text-indigo-600 text-3xl">
-                      25
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <p className="text-green-500 text-xl font-semibold">
-                    Save 12%
-                  </p>
-                  <p className="text-gray-400 text-sm">
-                    Inclusive of all Taxes.
-                  </p>
+      </div>
+      <div className="antialiased">
+        {/* <div className="bg-indigo-700 text-indigo-200 md:text-center py-2 px-4">
+          Welcome to{" "}
+          <a href="/" className="font-bold underline hover:text-indigo-100">
+            eGyanam Advance
+          </a>
+          . Learn, Explore ,{" "}
+          <a href="" className="font-bold underline hover:text-indigo-100">
+            Upskill
+          </a>
+          .
+        </div> */}
+        <div className="bg-white shadow-sm sticky top-0">
+          {/* Header content */}
+        </div>
+        <div className="py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+            <div className="flex flex-col md:flex-row -mx-4">
+              <div className="md:flex-1 px-4">
+                <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
+                  <ReactPlayer
+                    className="rounded-lg overflow-hidden "
+                    controls
+                    url={preview_video}
+                    width="100%"
+                    height="100%"
+                  />
+
+                  {/* <iframe
+                    width="100%"
+                    height="100%"
+                    src={preview_video}
+                    title="Course Preview"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe> */}
                 </div>
               </div>
-              <p className="text-gray-500">
-                Lorem ipsum, dolor sit, amet consectetur adipisicing elit. Vitae
-                exercitationem porro saepe ea harum corrupti vero id laudantium
-                enim, libero blanditiis expedita cupiditate a est.
-              </p>
-              <div className="flex py-4 space-x-4">
-                {/* <div className="relative">
-                  <div className="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
-                    Qty
+              <div className="md:flex-1 px-4">
+                <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
+                  {title}
+                </h2>
+                <div className="flex items-center space-x-4 my-4">
+                  <div>
+                    <div className="rounded-lg bg-gray-100 flex py-2 px-3">
+                      <span className="text-indigo-400 mr-1 mt-1">$</span>
+                      <span className="font-bold text-indigo-600 text-3xl">
+                        {price}
+                      </span>
+                    </div>
+
+                    {/* Price and saving */}
                   </div>
-                  <select className="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                  <svg
-                    className="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  {/* Course description */}
+                  <div className="flex py-4 space-x-4">
+                    <div className="flex-1">
+                      <p className="text-green-500 text-xl font-semibold">
+                        Save 12%
+                      </p>
+                      <p className="text-gray-400 text-sm">
+                        Inclusive of all Taxes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-500">{description}</p>
+                <div className="flex py-4 space-x-4 ml-2">
+                  <button
+                    type="button"
+                    className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                    />
-                  </svg>
-                </div> */}
-                <button
-                  type="button"
-                  className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
-                >
-                  Enroll Now
-                </button>
+                    Enroll Now
+                  </button>
+                </div>
               </div>
             </div>
           </div>

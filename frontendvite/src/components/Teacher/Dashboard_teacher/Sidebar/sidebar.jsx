@@ -5,10 +5,9 @@ import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 const SidebarContext = React.createContext();
 
 // Sidebar component
-export default function Sidebar({ children }) {
+export default function Sidebar({ children, teacher_id }) {
   const [expanded, setExpanded] = useState(true);
   const [teacherProfile, setTeacherProfile] = useState(null);
-
   // Toggle sidebar expansion
   const toggleSidebar = () => {
     setExpanded((curr) => !curr);
@@ -18,7 +17,9 @@ export default function Sidebar({ children }) {
   useEffect(() => {
     const fetchTeacherProfile = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/teacherprofile/");
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/teacherprofile/${teacher_id}`
+        );
         if (response.ok) {
           const data = await response.json();
           setTeacherProfile(data);
@@ -39,13 +40,22 @@ export default function Sidebar({ children }) {
         {/* Sidebar header */}
         <div className="p-4 pb-2 flex justify-between items-center">
           {/* Sidebar logo */}
-          <img
+          {/* <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
               expanded ? "w-32" : "w-0"
             }`}
             alt=""
-          />
+          /> */}
+          <a href="/" className="cursor-pointer">
+            <h4
+              className={`overflow-hidden transition-all ${
+                expanded ? "w-full" : "w-0"
+              }`}
+            >
+              eGyanam Advance
+            </h4>
+          </a>
           {/* Toggle button */}
           <button
             onClick={toggleSidebar}
@@ -57,20 +67,29 @@ export default function Sidebar({ children }) {
 
         {/* Provide context value */}
         <SidebarContext.Provider value={{ expanded }}>
+          {/* Render children */}
+          <ul className="flex-1 px-3">{children}</ul>
           {/* Render teacher profile details */}
           {teacherProfile && (
-            <div className="border-b p-3">
+            <div className="border-t p-3">
               {/* Teacher avatar */}
-              <img
+              {/* <img
                 src={teacherProfile.avatar}
                 alt=""
                 className="w-10 h-10 rounded-md"
-              />
+              /> */}
+              {/* Display first letter of teacher's name */}
+              <div className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-300">
+                {teacherProfile.username.charAt(0).toUpperCase()}
+              </div>
+
               {/* Teacher details */}
               <div
                 className={`
                   flex justify-between items-center
-                  overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+                  overflow-hidden transition-all ${
+                    expanded ? "w-52 ml-3" : "w-0"
+                  }
               `}
               >
                 <div className="leading-4">
@@ -86,15 +105,11 @@ export default function Sidebar({ children }) {
               </div>
             </div>
           )}
-
-          {/* Render children */}
-          <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
       </nav>
     </aside>
   );
 }
-
 
 // Sidebar item component
 export function SidebarItem({ icon, text, active, alert }) {

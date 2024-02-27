@@ -1,18 +1,18 @@
-// TeacherLogin.js
+// Import React, useState, and useNavigate from react-router-dom
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useAuth } from "../Auth/AuthContext";
-import NavBar from "../LandingPage/Navbar/Navbar";
+import "./login.css";
+import NavBar from "../Navbar/Navbar";
 
-function TeacherLogin() {
+function Login() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/teacherlogin/", {
+      const response = await fetch("http://localhost:8000/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,18 +21,13 @@ function TeacherLogin() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log("Teacher login successful!");
-        console.log("Teacher login successful!", data);
-        console.log(data.access_token, data.user.id);
-        login(data.access_token, data.user.id);
-        navigate("/teacherdashboard");
-        // You can redirect or perform any other action upon successful login
+        console.log("Login successful!");
+        navigate("/ViewCourses");
       } else {
-        console.error("Teacher login failed.");
+        console.error("Login failed.");
       }
     } catch (error) {
-      console.error("Error during teacher login:", error);
+      console.error("Error during login:", error);
     }
   };
 
@@ -51,10 +46,9 @@ function TeacherLogin() {
                     className="w-10"
                     alt="tailus logo"
                   />
-                  <h2 className="text-3xl text-cyan-900 font-bold">
-                    Teacher Login
-                  </h2>
+                  <h2 className="text-3xl text-cyan-900 font-bold">Sign in</h2>
                   <h5 className="mb-4 text-xl text-cyan-900">
+                    {" "}
                     Welcome back to eGyanam!
                   </h5>
                 </div>
@@ -75,13 +69,14 @@ function TeacherLogin() {
                     <h6>or</h6>
                   </div>
                 </div>
+
                 <form>
                   <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">
-                      Email address or username
+                      Email address
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -104,23 +99,56 @@ function TeacherLogin() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3 form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="exampleCheck1"
+                    />
+                    <label className="form-check-label" htmlFor="exampleCheck1">
+                      Remember me
+                    </label>
+                  </div>
                   <div className="d-grid gap-2">
                     <p>
-                      Start teaching with us!
+                      Start Learning with us!
                       <Link
-                        to="/teachersignup"
+                        to="/signup"
                         className="text-blue-500 hover:outline"
                       >
                         {" "}
                         Sign Up here
                       </Link>
                     </p>
-
                     <Button variant="outline-primary" onClick={handleLogin}>
                       Login
                     </Button>
                   </div>
                 </form>
+                <div className="mt-32 space-y-4 text-gray-600 text-center sm:-mb-8">
+                  <p className="text-xs">
+                    By proceeding, you agree to our{" "}
+                    <a href="#" className="underline">
+                      Terms of Use
+                    </a>{" "}
+                    and confirm you have read our{" "}
+                    <a href="#" className="underline">
+                      Privacy and Cookie Statement
+                    </a>
+                    .
+                  </p>
+                  <p className="text-xs">
+                    This site is protected by reCAPTCHA and the{" "}
+                    <a href="#" className="underline">
+                      Google Privacy Policy
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="underline">
+                      Terms of Service
+                    </a>{" "}
+                    apply.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -130,4 +158,4 @@ function TeacherLogin() {
   );
 }
 
-export default TeacherLogin;
+export default Login;

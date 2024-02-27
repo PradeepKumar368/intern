@@ -1,26 +1,49 @@
-
-import { Container, Row, Col } from 'react-bootstrap';
-
-const Trusted_Company = () => {
+export default function Trusted_Company() {
   return (
-    <Container fluid className="bg-light py-5">
-      <Container>
-        <h6 className="text-center mb-4">Trusted by over 15,000 companies and millions of learners around the world</h6>
-        <Row className="text-center">
-          <Col>
-            <img src="vite.svg" alt="Company Logo 1" className="img-fluid" />
-          </Col>
-          <Col>
-            <img src="vite.svg" alt="Company Logo 2" className="img-fluid" />
-          </Col>
-          <Col>
-            <img src="vite.svg" alt="Company Logo 3" className="img-fluid" />
-          </Col>
-          {/* Add more Col components for additional logos */}
-        </Row>
-      </Container>
-    </Container>
-  );
+    <div className="bg-white py-24 sm:py-32 mt-[-80px] pt-[-20px]">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
+          Trusted by the world’s most innovative teams
+        </h2>
+        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+          <img
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+            src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"
+            alt="Transistor"
+            width={158}
+            height={48}
+          />
+          <img
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+            src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"
+            alt="Reform"
+            width={158}
+            height={48}
+          />
+          <img
+            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+            src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"
+            alt="Tuple"
+            width={158}
+            height={48}
+          />
+          <img
+            className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+            src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"
+            alt="SavvyCal"
+            width={158}
+            height={48}
+          />
+          <img
+            className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+            src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"
+            alt="Statamic"
+            width={158}
+            height={48}
+          />
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default Trusted_Company;

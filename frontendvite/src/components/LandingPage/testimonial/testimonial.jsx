@@ -21,13 +21,13 @@ const Testimonial = () => {
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <div className="testimonial-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante.</p>
+                                            <p>Egyanam Advance has been instrumental in helping me land my dream job. The comprehensive courses and personalized mentorship provided a solid foundation for my career growth. I'm truly grateful for the invaluable skills and knowledge gained through Egyanam.</p>
                                         </div>
                                         <div className="testimonial-media">
                                             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3" className="mr-3" alt="" />
                                             <div className="testimonial-overview">
-                                                <div className="name"><b>Paula Wilson</b></div>
-                                                <div className="details">Media Analyst / SkyNet</div>
+                                                <div className="name"><b>Hemang Singh</b></div>
+                                                <div className="details">Consulting analyst</div>
                                                 <div className="star-rating">
                                                     <ul className="list-inline">
                                                         {[...Array(4)].map((star, index) => (
@@ -41,13 +41,13 @@ const Testimonial = () => {
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="testimonial-content">
-                                            <p>Vestibulum quis quam ut magna consequat faucibu. Eget mi suscipit tincidunt. Utmtc tempus dictum. Pellentesque virra. Quis quam ut magna consequat faucibus quam.</p>
+                                            <p>Thanks to Egyanam Advance, I was able to upskill myself and transition into a more fulfilling career path. The hands-on projects and expert guidance not only boosted my confidence but also equipped me with practical skills sought after by employers. I highly recommend Egyanam to anyone looking to advance their career.</p>
                                         </div>
                                         <div className="testimonial-media">
-                                            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3" className="mr-3" alt="" />
+                                            <img src="https://www.thewikifeed.com/wp-content/uploads/2021/01/gaurav-taneja-19.jpg" className="mr-3" alt="" />
                                             <div className="testimonial-overview">
-                                                <div className="name"><b>Antonio Moreno</b></div>
-                                                <div className="details">Web Developer / SoftBee</div>
+                                                <div className="name"><b>Gaurav Taneja</b></div>
+                                                <div className="details">Web Developer</div>
                                                 <div className="star-rating">
                                                     <ul className="list-inline">
                                                         {[...Array(4)].map((star, index) => (

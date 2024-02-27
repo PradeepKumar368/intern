@@ -9,6 +9,6 @@ urlpatterns = [
     path('teacherlogin/',TeacherLoginView.as_view(),name='teacher-login'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('teacherprofile/', TeacherProfileView.as_view(), name='teacher-profile'),
-    path('studentprofile/', StudentProfileView.as_view(), name='student-profile'),
+    path('teacherprofile/<int:pk>', TeacherProfileView.as_view(), name='teacher-profile'),
+    path('studentprofile/<int:pk>', StudentProfileView.as_view(), name='student-profile'),
 ]
