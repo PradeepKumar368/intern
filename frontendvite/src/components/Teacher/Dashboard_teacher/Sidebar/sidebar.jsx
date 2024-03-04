@@ -30,9 +30,8 @@ export default function Sidebar({ children, teacher_id }) {
         console.error("Error during teacher profile fetch:", error);
       }
     };
-
     fetchTeacherProfile();
-  }, []);
+  }, [teacher_id]);
 
   return (
     <aside className="h-screen">
@@ -71,7 +70,7 @@ export default function Sidebar({ children, teacher_id }) {
           <ul className="flex-1 px-3">{children}</ul>
           {/* Render teacher profile details */}
           {teacherProfile && (
-            <div className="border-t p-3">
+            <div className="border-t p-3 flex">
               {/* Teacher avatar */}
               {/* <img
                 src={teacherProfile.avatar}

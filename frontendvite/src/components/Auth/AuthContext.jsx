@@ -1,4 +1,4 @@
-// AuthContext.js
+// AuthContext.jsx
 import { createContext, useContext, useReducer } from 'react';
 
 const AuthContext = createContext();
@@ -13,7 +13,7 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('auth_token', action.payload.token);
-      localStorage.setItem('userId',action.payload.userId);
+      localStorage.setItem('userId', action.payload.userId);
 
       return {
         isAuthenticated: true,
@@ -27,6 +27,8 @@ const authReducer = (state, action) => {
       return state;
   }
 };
+
+// const isAuthenticated = (state) => state.isAuthenticated; // Define isAuthenticated function
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -54,4 +56,4 @@ const useAuth = () => {
   return context;
 };
 
-export { AuthProvider, useAuth };
+export { AuthProvider, useAuth }; // Export isAuthenticated

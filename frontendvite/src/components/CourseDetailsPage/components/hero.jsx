@@ -1,7 +1,28 @@
 import ReactPlayer from "react-player";
+import { useNavigate } from 'react-router-dom';
 
 const Hero = ({ courseDetails }) => {
+  const navigate = useNavigate()
   const { title, price, preview_video, description ,category} = courseDetails.course;
+
+  // const cartItems = {
+  //   items: [],
+  
+  //   addToCart: function(item) {
+  //     this.items.push(item);
+  //     console.log("Item added to cart:", item);
+  //   }
+  // };
+  
+  
+  const handleEnrollment = () => {
+    // Here you can add logic to add the course to the cart and perform any other necessary actions
+    // For now, let's just navigate to the cart page
+    const cartItems = { title, price, category };
+    navigate('/cart', { state: { cartItems } }); // Pass cartItem data to the next page
+};
+
+
   return (
     <div>
       <div className="bg-white shadow-sm sticky top-0">
@@ -105,7 +126,7 @@ const Hero = ({ courseDetails }) => {
               </a>
               <button
                 type="button"
-                className="hidden md:block w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex justify-center items-center"
+                className="md:block w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex justify-center items-center"
               >
                 <img
                   src="https://avatars.dicebear.com/api/bottts/2.svg"
@@ -269,6 +290,7 @@ const Hero = ({ courseDetails }) => {
                   <button
                     type="button"
                     className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+                    onClick={handleEnrollment}
                   >
                     Enroll Now
                   </button>

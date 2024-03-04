@@ -5,10 +5,13 @@ import Coursecard from "../Courses/Course_card/coursecard";
 import { useState, useEffect } from "react";
 import NavBar from "./Navbar/Navbar";
 import Hero from "./Hero/Hero";
+import { useAuth } from "@/components/Auth/AuthContext";
+import NavBar_postauth from "./Navbar/Navbar_postauth";
 
 const LandingPage = () => {
   const [courses, setcourses] = useState([]);
-
+  const { isAuthenticated } = useAuth();
+ console.log(isAuthenticated);
   useEffect(() => {
     const fetchcoursedetail = async () => {
       try {
@@ -29,7 +32,8 @@ const LandingPage = () => {
 
   return (
     <div>
-      <NavBar/>
+      {isAuthenticated ? <NavBar_postauth /> : <NavBar />}
+      {/* <NavBar /> */}
       <Searchbar />
       <Hero />
       <Trusted_Company />

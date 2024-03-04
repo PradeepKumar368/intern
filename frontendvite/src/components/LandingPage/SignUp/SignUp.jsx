@@ -3,12 +3,14 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "../Navbar/Navbar";
+import { useAuth} from "@/components/Auth/AuthContext";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSignUp = async () => {
     try {
@@ -23,7 +25,8 @@ function SignUp() {
 
       if (response.ok) {
         console.log("User registered successfully!");
-        navigate("/ViewCourses");
+        login();
+        navigate("/home");
       } else {
         console.error("User registration failed.");
       }

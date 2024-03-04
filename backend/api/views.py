@@ -141,7 +141,7 @@ class TeacherProfileView(generics.RetrieveAPIView):
         teacher_id = self.kwargs.get('pk')
         return self.get_queryset().get(id=teacher_id)
 
-class StudentProfileView(generics.ListAPIView):
+class StudentProfileView(generics.RetrieveAPIView):
     serializer_class = StudentProfileSerializer
     queryset = CustomUser.objects.all()
 

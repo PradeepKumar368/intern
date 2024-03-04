@@ -4,11 +4,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "./login.css";
 import NavBar from "../Navbar/Navbar";
+import { useAuth} from "@/components/Auth/AuthContext";
 
 function Login() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async () => {
     try {
@@ -21,8 +23,11 @@ function Login() {
       });
 
       if (response.ok) {
-        console.log("Login successful!");
-        navigate("/ViewCourses");
+        const data = await response.json();
+        console.log("Login successful!", data);
+        console.log(data.access_token, data.user.id);
+        login(data.access_token, data.user.id);
+        navigate("/home");
       } else {
         console.error("Login failed.");
       }
