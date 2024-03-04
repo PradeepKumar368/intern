@@ -11,7 +11,7 @@ import NavBar_postauth from "./Navbar/Navbar_postauth";
 const LandingPage = () => {
   const [courses, setcourses] = useState([]);
   const { isAuthenticated } = useAuth();
- console.log(isAuthenticated);
+  console.log(isAuthenticated);
   const [featuredCourses, setFeaturedCourses] = useState([]);
   const [trendingCourses, setTrendingCourses] = useState([]);
   const [mostPopularCourses, setMostPopularCourses] = useState([]);
@@ -52,7 +52,22 @@ const LandingPage = () => {
       <div>
         {featuredCourses.length > 0 && (
           <div>
-            <h2>Featured Courses</h2>
+            {/* <h2>Featured Courses</h2> */}
+            <h1 className="flex flex-row flex-nowrap items-center my-3">
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+              <span className="flex-none block mx-4   px-4 py-2.5 text-xl leading-none font-medium uppercase bg-black text-white">
+                Featured Courses
+              </span>
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+            </h1>
             <div className="flex justify-center items-center py-20">
               <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
                 {featuredCourses.map((course) => (
@@ -65,7 +80,22 @@ const LandingPage = () => {
 
         {trendingCourses.length > 0 && (
           <div>
-            <h2>Trending Courses</h2>
+            {/* <h2>Trending Courses</h2> */}
+            <h1 className="flex flex-row flex-nowrap items-center my-3">
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+              <span className="flex-none block mx-4   px-4 py-2.5 text-xl leading-none font-medium uppercase bg-black text-white">
+              Trending Courses
+              </span>
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+            </h1>
             <div className="flex justify-center items-center py-20">
               <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
                 {trendingCourses.map((course) => (
@@ -78,7 +108,22 @@ const LandingPage = () => {
 
         {mostPopularCourses.length > 0 && (
           <div>
-            <h2>Most Popular Courses</h2>
+            {/* <h2>Most Popular Courses</h2> */}
+            <h1 className="flex flex-row flex-nowrap items-center my-3">
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+              <span className="flex-none block mx-4   px-4 py-2.5 text-xl leading-none font-medium uppercase bg-black text-white">
+              Most Popular Courses
+              </span>
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+            </h1>
             <div className="flex justify-center items-center py-20">
               <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
                 {mostPopularCourses.map((course) => (

@@ -1,17 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Context for managing sidebar state
 const SidebarContext = React.createContext();
 
 // Sidebar component
 export default function Sidebar({ children, teacher_id }) {
-  const [expanded, setExpanded] = useState(true);
   const [teacherProfile, setTeacherProfile] = useState(null);
-  // Toggle sidebar expansion
-  const toggleSidebar = () => {
-    setExpanded((curr) => !curr);
+
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // Function to handle navigation
+  const handleClick = () => {
+    navigate(`/teacherprofile&settings/${teacher_id}`); // Navigate to the specified link
   };
 
   // Fetch teacher profile on component mount
@@ -38,56 +41,32 @@ export default function Sidebar({ children, teacher_id }) {
     <aside className="h-screen">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         {/* Sidebar header */}
-        <div className="p-4 pb-2 flex justify-between items-center">
+        <div className="p-4 pb-4 flex justify-between items-center">
           {/* Sidebar logo */}
-          {/* <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
-            }`}
-            alt=""
-          /> */}
           <a href="/" className="cursor-pointer">
-            <h4
-              className={`overflow-hidden transition-all ${
-                expanded ? "w-full" : "w-0"
-              }`}
-            >
-              eGyanam Advance
-            </h4>
+            <h4 className="overflow-hidden w-full">eGyanam Advance</h4>
           </a>
-          {/* Toggle button */}
-          <button
-            onClick={toggleSidebar}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-          >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button>
         </div>
 
         {/* Provide context value */}
-        <SidebarContext.Provider value={{ expanded }}>
+        <SidebarContext.Provider value={{ expanded: true }}>
           {/* Render children */}
           <ul className="flex-1 px-3">{children}</ul>
           {/* Render teacher profile details */}
           {teacherProfile && (
-            <div className="border-t p-3 flex">
+            <div className="border-t p-3 flex" onClick={handleClick}>
               {/* Teacher avatar */}
-              {/* <img
-                src={teacherProfile.avatar}
-                alt=""
-                className="w-10 h-10 rounded-md"
-              /> */}
-              {/* Display first letter of teacher's name */}
               <div className="w-10 h-10 rounded-md overflow-hidden">
                 {teacherProfile.profile_picture_url ? (
                   <img
                     src={teacherProfile.profile_picture_url}
                     alt={`${teacherProfile.username}'s Profile`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover cursor-pointer" // Add cursor pointer here
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-300">
+                  <div className="w-full h-full flex items-center justify-center bg-gray-300 cursor-pointer">
+                    {" "}
+                    {/* Add cursor pointer here */}
                     {teacherProfile.username.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -95,13 +74,11 @@ export default function Sidebar({ children, teacher_id }) {
 
               {/* Teacher details */}
               <div
-                className={`
-                  flex justify-between items-center
-                  overflow-hidden transition-all ${
-                    expanded ? "w-52 ml-3" : "w-0"
-                  }
-              `}
+                className="flex justify-between items-center ml-2 cursor-pointer"
+                onClick={handleClick}
               >
+                {" "}
+                {/* Add cursor pointer here */}
                 <div className="leading-4">
                   {/* Teacher name */}
                   <h4 className="font-semibold">{teacherProfile.username}</h4>
@@ -111,7 +88,10 @@ export default function Sidebar({ children, teacher_id }) {
                   </span>
                 </div>
                 {/* More options */}
-                <Link to={`/teacherprofile&settings/${teacher_id}`} className="text-indigo-500">
+                <Link
+                  to={`/teacherprofile&settings/${teacher_id}`}
+                  className="text-indigo-500"
+                >
                   <MoreVertical size={20} />
                 </Link>
               </div>
@@ -123,10 +103,14 @@ export default function Sidebar({ children, teacher_id }) {
   );
 }
 
-// Sidebar item component
-export function SidebarItem({ icon, text, active, alert }) {
+export function SidebarItem({ icon, text, active, alert, link }) {
   // Access sidebar context
-  const { expanded } = useContext(SidebarContext);
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // Function to handle navigation
+  const handleClick = () => {
+    navigate(link); // Navigate to the specified link
+  };
 
   return (
     <li
@@ -140,38 +124,16 @@ export function SidebarItem({ icon, text, active, alert }) {
             : "hover:bg-indigo-50 text-gray-600"
         }
     `}
+      onClick={handleClick}
     >
       {/* Icon */}
-      {icon}
+      <div className="relative">{icon}</div>
+
       {/* Text */}
-      <span
-        className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
-        }`}
-      >
-        {text}
-      </span>
+      <span className="overflow-hidden ml-2">{text}</span>
       {/* Alert indicator */}
       {alert && (
-        <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-            expanded ? "" : "top-2"
-          }`}
-        />
-      )}
-
-      {/* Collapsed text */}
-      {!expanded && (
-        <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
-          bg-indigo-100 text-indigo-800 text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-      `}
-        >
-          {text}
-        </div>
+        <div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400`} />
       )}
     </li>
   );
