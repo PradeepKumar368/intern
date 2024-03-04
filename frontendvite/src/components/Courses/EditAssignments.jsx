@@ -10,6 +10,7 @@ const EditAssignment = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [newAssignmentTitle, setNewAssignmentTitle] = useState("");
   const [newAssignmentDriveLink, setNewAssignmentDriveLink] = useState("");
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [editedDetails, setEditedDetails] = useState({
     title: "",
     drive_link: "", // Add drive link field
@@ -113,6 +114,32 @@ const EditAssignment = (props) => {
     });
   };
 
+  const handleDeleteClick = (Assignment) => {
+    setSelectedAssignment(Assignment);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/assignments/${selectedAssignment.id}/`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Assignment deleted successfully!");
+        setShowDeleteConfirmation(false);
+        window.location.reload();
+      } else {
+        console.error("Failed to delete assignment.");
+      }
+    } catch (error) {
+      console.error("Error during assignment deletion:", error);
+    }
+  };
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -121,6 +148,7 @@ const EditAssignment = (props) => {
             <Table.HeadCell>Assignment Title</Table.HeadCell>
             <Table.HeadCell>Drive Link</Table.HeadCell>
             <Table.HeadCell>Edit</Table.HeadCell>
+            <Table.HeadCell>Delete</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {Assignments.length > 0 ? (
@@ -141,6 +169,14 @@ const EditAssignment = (props) => {
                       Edit Details
                     </button>
                   </Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-red-600 hover:underline dark:text-red-500"
+                      onClick={() => handleDeleteClick(Assignment)}
+                    >
+                      Delete
+                    </button>
+                  </Table.Cell>
                 </Table.Row>
               ))
             ) : (
@@ -150,6 +186,7 @@ const EditAssignment = (props) => {
                 </Table.Cell>
                 <Table.Cell>No link</Table.Cell>
                 <Table.Cell>No action</Table.Cell>
+                <Table.Cell>No Action</Table.Cell>
               </Table.Row>
             )}
           </Table.Body>
@@ -262,6 +299,30 @@ const EditAssignment = (props) => {
               onClick={handleAddAssignment}
             >
               Add Assignment
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+      <div>
+        <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Assignment</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the Assignment "{selectedAssignment?.title}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 py-2 px-4 rounded-md mr-2"
+              onClick={() => setShowDeleteConfirmation(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white hover:bg-red-600 py-2 px-4 rounded-md"
+              onClick={handleDeleteConfirmation}
+            >
+              Delete Assignment
             </button>
           </Modal.Footer>
         </Modal>

@@ -12,6 +12,7 @@ const EditModule = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedModule, setSelectedModule] = useState(null);
   const [newModuleTitle, setNewModuleTitle] = useState("");
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [editedDetails, setEditedDetails] = useState({
     title: "",
   });
@@ -108,6 +109,32 @@ const EditModule = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleDeleteClick = (module) => {
+    setSelectedModule(module);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/modules/${selectedModule.id}/`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Module deleted successfully!");
+        setShowDeleteConfirmation(false);
+        window.location.reload();
+      } else {
+        console.error("Failed to delete module.");
+      }
+    } catch (error) {
+      console.error("Error during module deletion:", error);
+    }
+  };
   return (
     <>
       <div className="overflow-x-auto">
@@ -165,6 +192,7 @@ const EditModule = (props) => {
           <Table.Head>
             <Table.HeadCell>Module Title</Table.HeadCell>
             <Table.HeadCell>Edit</Table.HeadCell>
+            <Table.HeadCell>Delete</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y  border rounded-lg shadow-lg p-4">
             {modules.length > 0 ? (
@@ -180,6 +208,14 @@ const EditModule = (props) => {
                         onClick={() => handleEditClick(module)}
                       >
                         Edit Details
+                      </button>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <button
+                        className="font-medium text-red-600 hover:underline dark:text-red-500"
+                        onClick={() => handleDeleteClick(module)}
+                      >
+                        Delete
                       </button>
                     </Table.Cell>
                   </Table.Row>
@@ -240,6 +276,30 @@ const EditModule = (props) => {
         </Modal>
       </div>
 
+      <div>
+        <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Module</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the module "{selectedModule?.title}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 py-2 px-4 rounded-md mr-2"
+              onClick={() => setShowDeleteConfirmation(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white hover:bg-red-600 py-2 px-4 rounded-md"
+              onClick={handleDeleteConfirmation}
+            >
+              Delete Module
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </div>
       {/* <div className="flex justify-center mb-2 mt-2">
         {showAddModuleForm && ( // Render the add module form if showAddModuleForm is true
           <Modal

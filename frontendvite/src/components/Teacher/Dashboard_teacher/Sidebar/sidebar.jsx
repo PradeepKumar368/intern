@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Context for managing sidebar state
 const SidebarContext = React.createContext();
@@ -78,8 +79,18 @@ export default function Sidebar({ children, teacher_id }) {
                 className="w-10 h-10 rounded-md"
               /> */}
               {/* Display first letter of teacher's name */}
-              <div className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-300">
-                {teacherProfile.username.charAt(0).toUpperCase()}
+              <div className="w-10 h-10 rounded-md overflow-hidden">
+                {teacherProfile.profile_picture_url ? (
+                  <img
+                    src={teacherProfile.profile_picture_url}
+                    alt={`${teacherProfile.username}'s Profile`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-300">
+                    {teacherProfile.username.charAt(0).toUpperCase()}
+                  </div>
+                )}
               </div>
 
               {/* Teacher details */}
@@ -100,7 +111,9 @@ export default function Sidebar({ children, teacher_id }) {
                   </span>
                 </div>
                 {/* More options */}
-                <MoreVertical size={20} />
+                <Link to={`/teacherprofile&settings/${teacher_id}`} className="text-indigo-500">
+                  <MoreVertical size={20} />
+                </Link>
               </div>
             </div>
           )}

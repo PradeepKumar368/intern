@@ -20,7 +20,7 @@ from authentication.models import CustomUser,Teacher
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'password','organization_name','phone_no')  # Add other fields if needed
+        fields = ('email', 'username', 'password','organization_name','phone_no', 'profile_picture_url')  # Add other fields if needed
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -41,20 +41,10 @@ class SignUpSerializer(serializers.ModelSerializer):
 class TeacherSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ('id','email', 'username', 'password','organization_name','phone_no')
+        fields = ('id','email', 'username', 'password','organization_name','phone_no', 'profile_picture_url')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password')
         teacher = Teacher.objects.create_user(email=validated_data['email'], username=validated_data['username'], password=password)
         return teacher
-
-class TeacherProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Teacher
-        fields = ['id', 'username', 'email', 'organization_name', 'phone_no']
-
-class StudentProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'organization_name', 'phone_no']
