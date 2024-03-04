@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"; // Import React library and necessary hooks
 import { Modal, Form } from "react-bootstrap"; // Import necessary components from react-bootstrap
-import { useLocation } from "react-router-dom"; // Import useLocation hook
+import { useLocation , useNavigate } from "react-router-dom"; // Import useLocation hook
 import { useAuth } from "../Auth/AuthContext"; // Import useAuth hook
 // import ReactPlayer from "react-player"; // Import ReactPlayer component
 import EditModule from "./EditModule"; // Import EditModule component
@@ -25,6 +25,8 @@ const EditCourse = () => {
   const [course, setCourse] = useState({}); // State to store course details
   const [courseMode, setCourseMode] = useState(""); // State to store course mode
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const navigate = useNavigate();
   const [editedDetails, setEditedDetails] = useState({
     title: "",
     description: "",
@@ -32,6 +34,7 @@ const EditCourse = () => {
     mode: "",
     category: "",
     preview_video: "",
+    image: "",
     // Add other course details here
   }); // State to store edited course details
 
@@ -58,6 +61,7 @@ const EditCourse = () => {
             mode: data.mode,
             category: data.category,
             preview_video: data.preview_video,
+            image: data.image,
           });
         } else {
           console.error("Failed to fetch course details.");
@@ -110,6 +114,35 @@ const EditCourse = () => {
     });
   };
 
+  const handleDeleteClick = () => {
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/courses/${courseId}/`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Course deleted successfully!");
+        setShowDeleteConfirmation(false);
+        navigate('/teacherdashboard');
+        // Redirect or navigate to the course list page
+      } else {
+        console.error("Failed to delete course.");
+      }
+    } catch (error) {
+      console.error("Error during course deletion:", error);
+    }
+  };
+
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="flex">
@@ -137,6 +170,7 @@ const EditCourse = () => {
                 <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Description</Table.HeadCell>
                 <Table.HeadCell>Edit</Table.HeadCell>
+                <Table.HeadCell>Delete</Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -163,6 +197,14 @@ const EditCourse = () => {
                       onClick={handleShowModal}
                     >
                       Edit
+                    </button>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-red-600 hover:underline dark:text-red-500"
+                      onClick={handleDeleteClick}
+                    >
+                      Delete
                     </button>
                   </Table.Cell>
                 </Table.Row>
@@ -246,6 +288,16 @@ const EditCourse = () => {
                     onChange={handleChange}
                   />
                 </Form.Group>
+                <Form.Group controlId="formImage">
+                  <Form.Label>Image</Form.Label>
+                  <Form.Control
+                    className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                    type="text"
+                    name="image"
+                    value={editedDetails.image || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
@@ -264,6 +316,30 @@ const EditCourse = () => {
             </Modal.Footer>
           </Modal>
         </div>
+      </div>
+      <div>
+        <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Course</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the course "{course.title}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 py-2 px-4 rounded-md mr-2"
+              onClick={() => setShowDeleteConfirmation(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white hover:bg-red-600 py-2 px-4 rounded-md"
+              onClick={handleDeleteConfirmation}
+            >
+              Delete Course
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </section>
   );

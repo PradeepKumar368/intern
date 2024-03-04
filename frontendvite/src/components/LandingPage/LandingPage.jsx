@@ -8,6 +8,9 @@ import Hero from "./Hero/Hero";
 
 const LandingPage = () => {
   const [courses, setcourses] = useState([]);
+  const [featuredCourses, setFeaturedCourses] = useState([]);
+  const [trendingCourses, setTrendingCourses] = useState([]);
+  const [mostPopularCourses, setMostPopularCourses] = useState([]);
 
   useEffect(() => {
     const fetchcoursedetail = async () => {
@@ -27,6 +30,13 @@ const LandingPage = () => {
     fetchcoursedetail();
   }, []);
 
+  useEffect(() => {
+    // Filter courses based on categories
+    setFeaturedCourses(courses.filter((course) => course.is_featured));
+    setTrendingCourses(courses.filter((course) => course.is_trending));
+    setMostPopularCourses(courses.filter((course) => course.is_mostpopular));
+  }, [courses]);
+
   return (
     <div>
       <NavBar/>
@@ -34,12 +44,45 @@ const LandingPage = () => {
       <Hero />
       <Trusted_Company />
       <Testimonial />
-      <div className=" flex justify-center items-center py-20">
-        <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
-          {courses.map((course) => (
-            <Coursecard key={course.id} course={course} />
-          ))}
-        </div>
+      <div>
+        {featuredCourses.length > 0 && (
+          <div>
+            <h2>Featured Courses</h2>
+            <div className="flex justify-center items-center py-20">
+              <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+                {featuredCourses.map((course) => (
+                  <Coursecard key={course.id} course={course} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {trendingCourses.length > 0 && (
+          <div>
+            <h2>Trending Courses</h2>
+            <div className="flex justify-center items-center py-20">
+              <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+                {trendingCourses.map((course) => (
+                  <Coursecard key={course.id} course={course} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {mostPopularCourses.length > 0 && (
+          <div>
+            <h2>Most Popular Courses</h2>
+            <div className="flex justify-center items-center py-20">
+              <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+                {mostPopularCourses.map((course) => (
+                  <Coursecard key={course.id} course={course} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

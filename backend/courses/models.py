@@ -12,6 +12,10 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     preview_video = models.URLField()
+    image = models.URLField(null=True, blank=True)
+    is_featured = models.BooleanField(default=False)
+    is_trending = models.BooleanField(default=False)
+    is_mostpopular = models.BooleanField(default=False)
     
 
 class Module(models.Model):
