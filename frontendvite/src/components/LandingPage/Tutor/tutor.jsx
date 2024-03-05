@@ -12,7 +12,7 @@ const Tutor = () => {
           Instructors from around the country teach thousands of learners on eGyanam. We provide the tools and skills to teach what you love.
           </p>
           <div className="flex ml-7 justify-center">
-            <a href="#" className="inline-flex text-white bg-orange-400 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg">
+            <a href="/teachersignup" className="inline-flex text-white bg-orange-400 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg">
               Start exploring
             </a>
             <a href="egyanam.com" className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
