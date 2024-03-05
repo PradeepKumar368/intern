@@ -9,6 +9,7 @@ function EditLecture(props) {
   const [showModal, setShowModal] = useState(false);
   const [newLectureTitle, setNewLectureTitle] = useState("");
   const [newLectureYoutubeUrl, setNewLectureYoutubeUrl] = useState("");
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [editedDetails, setEditedDetails] = useState({
     title: "",
     youtube_url: "",
@@ -107,6 +108,32 @@ function EditLecture(props) {
     });
   };
 
+  const handleDeleteClick = (lecture) => {
+    setSelectedLecture(lecture);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/lectures/${selectedLecture.id}/`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Lecture deleted successfully!");
+        setShowDeleteConfirmation(false);
+        window.location.reload();
+      } else {
+        console.error("Failed to delete lecture.");
+      }
+    } catch (error) {
+      console.error("Error during lecture deletion:", error);
+    }
+  };
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -115,6 +142,7 @@ function EditLecture(props) {
             <Table.HeadCell>Lecture Title</Table.HeadCell>
             <Table.HeadCell>Youtube URL</Table.HeadCell>
             <Table.HeadCell>Edit</Table.HeadCell>
+            <Table.HeadCell>Delete</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {lectures.length > 0 ? (
@@ -135,6 +163,14 @@ function EditLecture(props) {
                       Edit
                     </button>
                   </Table.Cell>
+                  <Table.Cell>
+                    <button
+                      className="font-medium text-red-600 hover:underline dark:text-red-500"
+                      onClick={() => handleDeleteClick(lecture)}
+                    >
+                      Delete
+                    </button>
+                  </Table.Cell>
                 </Table.Row>
               ))
             ) : (
@@ -143,6 +179,7 @@ function EditLecture(props) {
                   No lectures available
                 </Table.Cell>
                 <Table.Cell>No Link</Table.Cell>
+                <Table.Cell>No Action</Table.Cell>
                 <Table.Cell>No Action</Table.Cell>
               </Table.Row>
             )}
@@ -246,6 +283,30 @@ function EditLecture(props) {
               onClick={handleAddLecture}
             >
               Save Changes
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+      <div>
+        <Modal show={showDeleteConfirmation} onHide={() => setShowDeleteConfirmation(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Lecture</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the lecture "{selectedLecture?.title}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 py-2 px-4 rounded-md mr-2"
+              onClick={() => setShowDeleteConfirmation(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white hover:bg-red-600 py-2 px-4 rounded-md"
+              onClick={handleDeleteConfirmation}
+            >
+              Delete Lecture
             </button>
           </Modal.Footer>
         </Modal>

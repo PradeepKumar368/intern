@@ -6,7 +6,7 @@ from .serializers import CourseSerializer, ModuleSerializer, LectureSerializer, 
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.decorators import permission_classes,authentication_classes
+
 from authentication.models import Teacher
 
 class CourseViewSet(viewsets.ModelViewSet):

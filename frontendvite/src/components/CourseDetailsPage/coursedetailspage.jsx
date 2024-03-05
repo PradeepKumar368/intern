@@ -8,7 +8,8 @@ import { useParams } from 'react-router-dom';
 const Coursedetailspage = () => {
   const [courseDetails, setCourseDetails] = useState(null);
   const { courseId } = useParams();
-  const [courses, setcourses] = useState([]);
+  const [courses, setCourses] = useState([]);
+  // const [cartItems, setCartItems] = useState([]); // State to manage cart items
 
   useEffect(() => {
     const fetchcoursedetail = async () => {
@@ -16,7 +17,7 @@ const Coursedetailspage = () => {
         const response = await fetch("http://localhost:8000/api/coursedetail/");
         if (response.ok) {
           const data = await response.json();
-          setcourses(data);
+          setCourses(data);
         } else {
           console.error("failed to fetch course detail");
         }
@@ -47,6 +48,12 @@ const Coursedetailspage = () => {
 
     fetchCourseDetails();
   }, [courseId]);
+
+  // Function to add an item to the cart
+  // const addToCart = (item) => {
+  //   setCartItems([...cartItems, item]);
+  // };
+
   return (
     <div>
       {courseDetails && <Hero courseDetails={courseDetails} />}
@@ -82,12 +89,12 @@ const Coursedetailspage = () => {
         </div>
 
         <div className=" flex justify-center items-center py-20">
-        <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
-          {courses.map((course) => (
-            <Coursecard key={course.id} course={course} />
-          ))}
+          <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+            {courses.map((course) => (
+              <Coursecard key={course.id} course={course} />
+            ))}
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );
