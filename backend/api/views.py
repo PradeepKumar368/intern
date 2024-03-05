@@ -142,15 +142,22 @@ class TeacherProfileView(generics.RetrieveUpdateAPIView):
         teacher_id = self.kwargs.get('pk')
         return self.get_queryset().get(id=teacher_id)
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
+# class StudentProfileView(generics.RetrieveAPIView):
+#     serializer_class = SignUpSerializer
+    
+#     def get_object(self):
+#         CustomUser_id = self.kwargs.get('pk')
+#         return self.get_queryset().get(id=CustomUser_id)
+    
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
 
-        # Update only the fields that are present in the request data
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+#         # Update only the fields that are present in the request data
+#         serializer = self.get_serializer(instance, data=request.data, partial=True)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
@@ -175,7 +182,7 @@ class ChangePasswordView(APIView):
 
         return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
 
-class StudentProfileView(generics.ListAPIView):
+class StudentProfileView(generics.RetrieveAPIView):
     serializer_class = SignUpSerializer
     queryset = CustomUser.objects.all()
 

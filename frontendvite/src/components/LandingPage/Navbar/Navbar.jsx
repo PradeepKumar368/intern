@@ -2,6 +2,7 @@ import { Navbar, Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 
 
+
 function NavBar() {
   return (
     <div className="shadow mt-[-2px]">
@@ -46,11 +47,11 @@ function NavBar() {
               <Button outline gradientDuoTone="cyanToBlue"
                 as={Link}
                 to="/login"
-                gradientMonochrome="none">
+                gradientMonochrome="none" pill>
                 Login
               </Button>
             
-            <Button outline gradientDuoTone="cyanToBlue" as={Link} to="/signup" gradientMonochrome="none">
+            <Button gradientMonochrome="failure"  pill as={Link} to="/signup">
               Get started
             </Button>
           </div>

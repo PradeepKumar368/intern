@@ -17,6 +17,7 @@ import EditLecture from './components/Courses/EditLectures';
 import CourseCategory from './components/Courses/Courses_Category/coursecategory';
 import Coursedetailspage from './components/CourseDetailsPage/coursedetailspage';
 import Foter from './components/LandingPage/Footer/footer';
+import Cart from './components/Cart/cart';
 import TeacherProfileSettingsPage from './components/Teacher/Dashboard_teacher/TeacherProfileSettingsPage';
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/lecture" element={<EditLecture/>} />
           <Route path="/category" element={<CourseCategory/>} />
           <Route path="/coursedetails/:courseId" element={<Coursedetailspage/>} />
+          <Route path="/cart" element={<Cart/>} />
           <Route path="/teacherprofile&settings/:teacher_id" element={<TeacherProfileSettingsPage/>}/>
         </Routes>
         <Foter/>
