@@ -59,7 +59,7 @@ const Coursecard = (props) => {
 
   return (
         <div className="max-w-sm bg-white px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
-          <h3 className="mb-3 text-xl font-bold text-indigo-600">
+          <h3 className="mb-3 text-xl font-bold text-black-600">
             {course.category}
           </h3>
           <div className="relative">
@@ -87,7 +87,7 @@ const Coursecard = (props) => {
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600 mb-1.5"
+                  className="h-6 w-6 text-grey-800 mb-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -111,7 +111,7 @@ const Coursecard = (props) => {
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-indigo-600 mb-1.5"
+                    className="h-6 w-6 text-grey-800 mb-1.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -124,7 +124,7 @@ const Coursecard = (props) => {
                     />
                   </svg>
                 </span>
-                <p>{modules.length} modules</p>
+                <p>{modules.length} Module</p>
               </div>
             )}
 
@@ -132,7 +132,7 @@ const Coursecard = (props) => {
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600 mb-1.5"
+                  className="h-6 w-6 text-grey-800 mb-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -147,7 +147,7 @@ const Coursecard = (props) => {
               </span>
               <p>{course.mode}</p>
             </div>
-            <button className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg"  onClick={handleEnrollClick} >
+            <button className="mt-4 text-xl w-full text-white bg-red-800 py-2 rounded-xl shadow-lg"  onClick={handleEnrollClick} >
               Enroll Now
             </button>
           </div>

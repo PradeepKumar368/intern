@@ -5,6 +5,8 @@ import Coursecard from "../Courses/Course_card/coursecard";
 import { useState, useEffect } from "react";
 import NavBar from "./Navbar/Navbar";
 import Hero from "./Hero/Hero";
+import Info from "./Contact/contact";
+import Tutor from "./Tutor/tutor";
 
 const LandingPage = () => {
   const [courses, setcourses] = useState([]);
@@ -30,10 +32,13 @@ const LandingPage = () => {
   return (
     <div>
       <NavBar/>
-      <Searchbar />
+      {/* <Searchbar /> */}
       <Hero />
       <Trusted_Company />
+      <Tutor/>
+      
       <Testimonial />
+      
       <div className=" flex justify-center items-center py-20">
         <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
           {courses.map((course) => (
@@ -41,6 +46,7 @@ const LandingPage = () => {
           ))}
         </div>
       </div>
+      <Info/>
     </div>
   );
 };
