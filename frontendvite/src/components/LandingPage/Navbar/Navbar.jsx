@@ -8,38 +8,31 @@ function NavBar() {
     <div className="shadow mt-[-2px]">
       <Navbar fluid rounded>
         <Navbar.Brand href="/">
-          {/* <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
           <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
             eGyanam Advance
           </span>
         </Navbar.Brand>
-        {/* <div className="flex md:order-2">
-                <Button as={Link} to="/signup">Get started</Button>
-                <Navbar.Toggle />
-            </div> */}
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link as={Link} to="/" active>
+          <Navbar.Link as={Link} to="/" active className="text-black">
             Home
           </Navbar.Link>
-          <Navbar.Link as={Link} to="/about">
+          <Navbar.Link as={Link} to="/about" className="text-black">
             About
           </Navbar.Link>
-          <Navbar.Link as={Link} to="/services">
+          <Navbar.Link as={Link} to="/services" className="text-black">
             Courses
           </Navbar.Link>
-          <Navbar.Link as={Link} to="/contact">
+          <Navbar.Link as={Link} to="/contact" className="text-black">
             Contact Us
           </Navbar.Link>
         </Navbar.Collapse>
-        {/* <Navbar.Brand as={Link} to="/" className="mx-auto">eGyanam</Navbar.Brand> */}
         <Navbar.Collapse>
-          < div className="flex items-center space-x-6 md:space-x-1">
+          <div className="flex items-center space-x-6 md:space-x-1">
             <Button
               as={Link}
               to="/teacherlogin"
               gradientDuoTone="none"
-
             >
               Am a tutor
             </Button>
@@ -61,4 +54,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default NavBar;

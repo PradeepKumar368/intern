@@ -6,7 +6,7 @@ const Testimonial = () => {
     return (
         <div className="container-lg">
             <div className="row">
-                <h2 className='testimonial-heading mt-4'>Our Student <b>Testimonials</b></h2>
+                <h2 className='testimonial-heading ml-8 mt-4'>Our Student <b>Testimonials</b></h2>
                 <div className="col-sm-12">
                     <div id="testimonialCarousel" className="testimonial-carousel carousel slide" data-ride="carousel">
                         {/* <!-- Carousel indicators --> */}
@@ -26,7 +26,7 @@ const Testimonial = () => {
                                         <div className="testimonial-media">
                                             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3" className="mr-3" alt="" />
                                             <div className="testimonial-overview">
-                                                <div className="name"><b>Hemang Singh</b></div>
+                                                <div className="name"><b>Ashutosh Singh</b></div>
                                                 <div className="details">Consulting analyst</div>
                                                 <div className="star-rating">
                                                     <ul className="list-inline">
@@ -41,12 +41,12 @@ const Testimonial = () => {
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="testimonial-content">
-                                            <p>Thanks to Egyanam Advance, I was able to upskill myself and transition into a more fulfilling career path. The hands-on projects and expert guidance not only boosted my confidence but also equipped me with practical skills sought after by employers. I highly recommend Egyanam to anyone looking to advance their career.</p>
+                                            <p>Thanks to Egyanam Advance, I was able to upskill myself and transition into a more fulfilling career path. The hands-on projects and expert guidance not only boosted my confidence but also equipped me with practical skills sought after by employers.</p>
                                         </div>
                                         <div className="testimonial-media">
                                             <img src="https://www.thewikifeed.com/wp-content/uploads/2021/01/gaurav-taneja-19.jpg" className="mr-3" alt="" />
                                             <div className="testimonial-overview">
-                                                <div className="name"><b>Gaurav Taneja</b></div>
+                                                <div className="name"><b>Gaurav Kumar</b></div>
                                                 <div className="details">Web Developer</div>
                                                 <div className="star-rating">
                                                     <ul className="list-inline">

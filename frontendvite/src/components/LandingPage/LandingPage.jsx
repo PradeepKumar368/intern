@@ -5,6 +5,8 @@ import Coursecard from "../Courses/Course_card/coursecard";
 import { useState, useEffect } from "react";
 import NavBar from "./Navbar/Navbar";
 import Hero from "./Hero/Hero";
+import Info from "./Contact/contact";
+import Tutor from "./Tutor/tutor";
 import { useAuth } from "@/components/Auth/AuthContext";
 import NavBar_postauth from "./Navbar/Navbar_postauth";
 
@@ -48,6 +50,8 @@ const LandingPage = () => {
       <Searchbar />
       <Hero />
       <Trusted_Company />
+      <Tutor/>
+      
       <Testimonial />
       <div>
         {featuredCourses.length > 0 && (
@@ -134,6 +138,7 @@ const LandingPage = () => {
           </div>
         )}
       </div>
+      <Info/>
     </div>
   );
 };
