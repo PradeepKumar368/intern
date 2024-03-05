@@ -160,7 +160,7 @@ const EditCourse = () => {
           <SidebarItem icon={<HiArrowSmRight />} text="Sign In" />
           <SidebarItem icon={<HiTable />} text="Sign Up" />
         </Sidebar>
-        <div className="ml-20 border border-black mt-2">
+        <div>
           <div className="overflow-x-auto">
             <Table>
               <Table.Head>
