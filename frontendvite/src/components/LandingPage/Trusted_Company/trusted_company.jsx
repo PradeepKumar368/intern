@@ -4,8 +4,23 @@ import './trusted_company.css'; // Import the CSS file
 const Trusted_Company = () => {
   return (
     <section>
-      <h1>Our Partners</h1>
-      <div className="slider">
+      {/* <h1>Our Partners</h1> */}
+      <h1 className="flex flex-row flex-nowrap items-center my-3">
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+              <span className="flex-none block mx-4   px-4 py-2.5 text-xl leading-none font-medium uppercase bg-black text-white">
+              Our Partners
+              </span>
+              <span
+                className="flex-grow block border-t border-black"
+                aria-hidden="true"
+                role="presentation"
+              ></span>
+            </h1>
+      <div className="slider mb-4 pb-4">
         <div className="slider-items">
           <img src="https://qph.cf2.quoracdn.net/main-qimg-a5ab8140cf60c3be5caf2f51c7d4cb0f-pjlq" alt="" />
           <img src="https://www.iitk.ac.in/new/images/page-images/logo/bluelog.jpg" alt="" />

@@ -47,7 +47,7 @@ const LandingPage = () => {
     <div>
       {isAuthenticated ? <NavBar_postauth /> : <NavBar />}
       {/* <NavBar /> */}
-      <Searchbar />
+      {/* <Searchbar /> */}
       <Hero />
       <Trusted_Company />
       <Tutor/>
