@@ -21,6 +21,13 @@ const Hero = ({ courseDetails }) => {
     const cartItems = { title, price, category };
     navigate('/cart', { state: { cartItems } }); // Pass cartItem data to the next page
 };
+const handleAddTocart = () => {
+  // Here you can add logic to add the course to the cart and perform any other necessary actions
+  // For now, let's just navigate to the cart page
+  const cartItems = { title, price, category };
+  navigate('/cart', { state: { cartItems } }); // Pass cartItem data to the next page
+};
+
 
 
   return (
@@ -287,6 +294,13 @@ const Hero = ({ courseDetails }) => {
                 </div>
                 <p className="text-gray-500">{description}</p>
                 <div className="flex py-4 space-x-4 ml-2">
+                <button
+                    type="button"
+                    className="h-14 px-6 py-2 font-semibold rounded-xl bg-red-600 hover:bg-red-500 text-white"
+                    onClick={handleAddTocart}
+                  >
+                    Add to Cart
+                  </button>
                   <button
                     type="button"
                     className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"

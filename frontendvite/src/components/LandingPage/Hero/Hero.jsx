@@ -14,9 +14,10 @@ const Hero = () => {
                       <path d="m3 11 18-5v12L3 14v-3z"></path>
                       <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
                     </svg>
-                    New
+                    Coming Soon
                   </span>
-                  <span>Coming Soon</span>
+                  <span>Data Science and AI course </span>
+                  <span>'LIVE' at HBTU on 13th April 2024</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
@@ -30,7 +31,7 @@ const Hero = () => {
               </div>
               <div className="sm:flex sm:justify-center lg:justify-start">
                 <button className="inline-block px-8 py-3 ml-5 text-white bg-black rounded-md text-base font-medium focus:outline-none hover:bg-primary-dark">
-                  Chat with e-assistant
+                  Enroll Now
                 </button>
                 <button id="theme-toggle" type="button" className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
     <svg id="theme-toggle-dark-icon" className="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
@@ -41,7 +42,7 @@ const Hero = () => {
           </div>
           <div className="mt-1 ml-6 sm:mt-24 lg:mt-0 lg:col-span-5">
             <p className="text-4xl mt-10 lg:text-2xl text-gray-600">
-              "Unlock limitless opportunities and stay ahead of the curve by upgrading your tech skills – invest in yourself today for a brighter and more rewarding future."
+              "EXPLORE A WORLD OF OUR <span className="text-red-800 highlight">E-GYAN </span> WITH EGYANAM"
             </p>
             <div className="mt-12">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
