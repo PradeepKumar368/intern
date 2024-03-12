@@ -1,13 +1,13 @@
 # courses/views.py
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets,status
-from .models import Course, Module, Lecture, Assignment, Note
-from .serializers import CourseSerializer, ModuleSerializer, LectureSerializer, AssignmentSerializer, NoteSerializer,CourseCurriculumSerializer
+from .models import Course, Module, Lecture, Assignment, Note, StudentCourses
+from .serializers import CourseSerializer, ModuleSerializer, LectureSerializer, AssignmentSerializer, NoteSerializer,CourseCurriculumSerializer, StudentCoursesSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
-from authentication.models import Teacher
+from rest_framework.decorators import action
+from authentication.models import Teacher,CustomUser
 
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
@@ -51,6 +51,73 @@ class CourseViewSet(viewsets.ModelViewSet):
         
         return super().update(request, *args, **kwargs)
 
+class StudentCoursesViewSet(viewsets.ViewSet):
+    @action(detail=True, methods=['get', 'post'])
+    def registered_courses(self, request, pk=None):
+        student = get_object_or_404(CustomUser, pk=pk)
+        print(f"Student ID: {pk}")
+        student_courses, created = StudentCourses.objects.get_or_create(student=student)
+
+        if request.method == 'GET':
+            serializer = StudentCoursesSerializer(instance=student_courses)
+            print(f"Registered Course data: {serializer.data}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        elif request.method == 'POST':
+            course_id = request.data.get('course_id')
+            print(f"Received Course ID: {course_id}")
+
+            course_ids = request.data.get('course_ids', [])
+            print(f"Received Course IDs for checkout: {course_ids}")
+            # Determine the operation (add or remove)
+            operation = request.data.get('operation', 'add')
+
+            if operation == 'add':
+                student_courses.registered_course_ids.add(course_id)
+            elif operation == 'checkout':
+                student_courses.registered_course_ids.add(*course_ids)
+                student_courses.cart_course_ids.clear()  # Clear the cart after successful checkout
+
+            student_courses.save()
+            print(f"Updated Registered Course IDs: {student_courses.registered_course_ids.all()}")
+
+            serializer = StudentCoursesSerializer(instance=student_courses)
+            print(f"Updated Registered Course: {serializer.data}")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    @action(detail=True, methods=['get', 'post'])
+    def cart_courses(self, request, pk=None):
+        student = get_object_or_404(CustomUser, pk=pk)
+        print(f"Student ID: {pk}")
+        student_courses, created = StudentCourses.objects.get_or_create(student=student)
+
+        if request.method == 'GET':
+            serializer = StudentCoursesSerializer(instance=student_courses)
+            print(f"Cart Course data: {serializer.data}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        elif request.method == 'POST':
+            course_id = request.data.get('course_id')
+            print(f"Received Course ID: {course_id}")
+
+            # Determine the operation (add or remove)
+            operation = request.data.get('operation', 'add')
+
+            if operation == 'add':
+                student_courses.cart_course_ids.add(course_id)
+            elif operation == 'remove':
+                student_courses.cart_course_ids.remove(course_id)
+
+            student_courses.save()
+            print(f"Updated Cart Course IDs: {student_courses.cart_course_ids.all()}")
+
+            serializer = StudentCoursesSerializer(instance=student_courses)
+            print(f"Updated Cart Course: {serializer.data}")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 class CourseDetailViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Course.objects.all()

@@ -1,8 +1,7 @@
 # courses/models.py
 
 from django.db import models
-from authentication.models import Teacher
-
+from authentication.models import Teacher,CustomUser
 
 class Course(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
@@ -17,6 +16,10 @@ class Course(models.Model):
     is_trending = models.BooleanField(default=False)
     is_mostpopular = models.BooleanField(default=False)
     
+class StudentCourses(models.Model):
+    student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    registered_course_ids = models.ManyToManyField('Course', related_name='registered_students_ids', blank=True)
+    cart_course_ids = models.ManyToManyField('Course', related_name='cart_students_ids', blank=True)
 
 class Module(models.Model):
     title = models.CharField(max_length=255)

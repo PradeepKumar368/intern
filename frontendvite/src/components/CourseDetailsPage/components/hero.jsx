@@ -1,34 +1,67 @@
+import { useAuth } from "@/components/Auth/AuthContext";
 import ReactPlayer from "react-player";
 import { useNavigate } from 'react-router-dom';
 
 const Hero = ({ courseDetails }) => {
   const navigate = useNavigate()
-  const { title, price, preview_video, description ,category} = courseDetails.course;
-
-  // const cartItems = {
-  //   items: [],
-  
-  //   addToCart: function(item) {
-  //     this.items.push(item);
-  //     console.log("Item added to cart:", item);
-  //   }
-  // };
-  
+  const {userId} = useAuth();
+  const { id, title, price, preview_video, description ,category} = courseDetails.course;
   
   const handleEnrollment = () => {
     // Here you can add logic to add the course to the cart and perform any other necessary actions
     // For now, let's just navigate to the cart page
-    const cartItems = { title, price, category };
-    navigate('/cart', { state: { cartItems } }); // Pass cartItem data to the next page
-};
-const handleAddTocart = () => {
-  // Here you can add logic to add the course to the cart and perform any other necessary actions
-  // For now, let's just navigate to the cart page
-  const cartItems = { title, price, category };
-  navigate('/cart', { state: { cartItems } }); // Pass cartItem data to the next page
-};
-
-
+    fetch(`http://127.0.0.1:8000/api/student_courses/${userId}/registered_courses/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+      },
+      body: JSON.stringify({
+        operation: 'add',
+        course_id: id,
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        // Handle success, maybe show a success message
+        console.log('Registered course successfully');
+      } else {
+        // Handle error, maybe show an error message
+        console.error('Failed to register');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
+  
+  const handleAddToCart = () => {
+    // Make a POST request to add the course to the cart
+    fetch(`http://127.0.0.1:8000/api/student_courses/${userId}/cart_courses/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+      },
+      body: JSON.stringify({
+        operation: 'add',
+        course_id: id,
+      }),
+    })
+      .then(response => {
+        if (response.ok) {
+          // Handle success, maybe show a success message
+          console.log('Course added to cart successfully');
+          navigate("/cart");
+        } else {
+          // Handle error, maybe show an error message
+          console.error('Failed to add course to cart');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   return (
     <div>
@@ -297,7 +330,7 @@ const handleAddTocart = () => {
                 <button
                     type="button"
                     className="h-14 px-6 py-2 font-semibold rounded-xl bg-red-600 hover:bg-red-500 text-white"
-                    onClick={handleAddTocart}
+                    onClick={handleAddToCart}
                   >
                     Add to Cart
                   </button>
