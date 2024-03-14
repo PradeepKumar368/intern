@@ -16,7 +16,7 @@ function Info() {
           Email
         </h5>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          info@egyanam.in
+          info@egyanam.com
         </p>
       </Card>
       <Card className="max-w-sm" imgSrc="https://i.pinimg.com/originals/b2/2e/f5/b22ef558f8ca14caa12e3e25aa54e343.jpg" horizontal>

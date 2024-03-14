@@ -32,7 +32,7 @@ const handleAddTocart = () => {
 
   return (
     <div>
-      <div className="bg-white shadow-sm sticky top-0">
+      {/* <div className="bg-white shadow-sm sticky top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
           <div className="flex items-center justify-between md:justify-start">
             <button
@@ -167,7 +167,7 @@ const handleAddTocart = () => {
             </svg>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="antialiased">
         <div className="bg-indigo-700 text-indigo-200 md:text-center py-2 px-4">
           Welcome to{" "}

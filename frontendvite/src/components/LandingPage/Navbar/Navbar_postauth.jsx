@@ -1,8 +1,10 @@
 import { Navbar } from "flowbite-react";
-import { Avatar } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/components/Auth/AuthContext";
+import { Avatar } from "flowbite-react";
+import { Dropdown } from "flowbite-react";
+import { ShoppingCart } from 'lucide-react';
 
 function NavBar_postauth() {
   const { userId } = useAuth();
@@ -21,11 +23,16 @@ function NavBar_postauth() {
     }
   }, [userId]);
 
+  const getInitials = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "";
+  };
+
+
   return (
     <div className="shadow mt-[-2px]">
       <Navbar fluid rounded>
         <Navbar.Brand href="/">
-          <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white ml-4">
+          <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
             eGyanam Advance
           </span>
         </Navbar.Brand>
@@ -45,32 +52,30 @@ function NavBar_postauth() {
           </Navbar.Link>
         </Navbar.Collapse>
         <Navbar.Collapse>
-          <Avatar
-            img={studentProfile.profile_picture_url}
-            placeholderInitials={studentProfile.username.charAt(0).toUpperCase()}
-            className="w-full h-full object-cover cursor-pointer mr-4"
-            rounded
-            bordered
-          >
-            <div className="space-y-1 font-medium dark:text-white">
-              <div>{studentProfile.username}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {studentProfile.email}
-              </div>
-            </div>
-          </Avatar>
-          {/* {studentProfile && ( // Conditionally render if studentProfile exists
-            <div className="flex items-center space-x-6 md:space-x-1">
-              {studentProfile.username && (
-                <span>{studentProfile.username}</span>
+           <div className="flex items-center justify-end space-x-6 md:space-x-1">
+            <div className="hidden md:block mr-3">
+           <ShoppingCart />
+           </div>
+            <Dropdown
+              label=""
+              dismissOnClick={false}
+              renderTrigger={() => (
+                <span className="flex">
+                  <Avatar
+                    placeholderInitials={getInitials(studentProfile?.username)}
+                  />
+                  {studentProfile?.username && (
+                    <span className="mt-2 ml-1.5">{studentProfile.username}</span>
+                  )}
+                </span>
               )}
-              {studentProfile.email && <span>{studentProfile.email}</span>} */}
-          {/* Add logout button */}
-          {/* <Button outline gradientDuoTone="cyanToBlue" onClick={logout}>
-                Logout
-              </Button> */}
-          {/* </div>
-          )} */}
+            >
+              <Dropdown.Item>Dashboard</Dropdown.Item>
+              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item>Earnings</Dropdown.Item>
+              <Dropdown.Item>Sign out</Dropdown.Item>
+            </Dropdown>
+          </div>
         </Navbar.Collapse>
       </Navbar>
     </div>

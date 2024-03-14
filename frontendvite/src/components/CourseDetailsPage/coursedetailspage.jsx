@@ -4,6 +4,9 @@ import Hero from "./components/hero";
 import "./coursedetailspage.css";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'; 
+import { useAuth } from "../Auth/AuthContext";
+import NavBar_postauth from "../LandingPage/Navbar/Navbar_postauth";
+import NavBar from "../LandingPage/Navbar/Navbar";
 
 const Coursedetailspage = () => {
   const [courseDetails, setCourseDetails] = useState(null);
@@ -13,6 +16,8 @@ const Coursedetailspage = () => {
   const [featuredCourses, setFeaturedCourses] = useState([]);
   const [trendingCourses, setTrendingCourses] = useState([]);
   const [mostPopularCourses, setMostPopularCourses] = useState([]);
+  const { isAuthenticated } = useAuth();
+  console.log(isAuthenticated);
 
   useEffect(() => {
     const fetchcoursedetail = async () => {
@@ -66,6 +71,7 @@ const Coursedetailspage = () => {
 
   return (
     <div>
+      {isAuthenticated ? <NavBar_postauth /> : <NavBar />}
       {courseDetails && <Hero courseDetails={courseDetails} />}
 
       {courseDetails && <Curriculum courseDetails={courseDetails} />}

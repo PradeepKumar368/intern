@@ -1,4 +1,3 @@
-import Searchbar from "./Search_bar/searchbar";
 import Trusted_Company from "./Trusted_Company/trusted_company";
 import Testimonial from "./testimonial/testimonial";
 import Coursecard from "../Courses/Course_card/coursecard";
